@@ -1,0 +1,78 @@
+a,
+div,
+li,
+section,
+ul,
+input,
+header,
+main,
+footer,
+form,
+span {
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+li,
+a {
+  color: rgba(0, 0, 0, 1);
+  text-decoration: none;
+  list-style-type: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+span {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: #ffffff;
+  width: 100%;
+  max-width: 1536px;
+  font-size: 16px;
+  margin: 0 auto!important;
+  color: rgba(0, 0, 0, 1);  
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-family: 'PT Sans', sans-serif;
+}
+
+.container{
+  width: 100%;
+  padding: 0 5.5rem;
+}
+
+.dnone{
+  display: none;
+}
+
+.dflex{
+  display: flex;
+  flex-wrap: wrap; 
+}
+
+.dflex_nowrap{
+  display: flex;
+  flex-wrap: nowrap; 
+}
+
+.dblock{
+  display: block;
+}
+
+//Эффекты

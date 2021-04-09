@@ -1,28 +1,56 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header />
+    <Catalog />
+    <router-view />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// import { bus } from "@/main.js";
 export default {
-  name: 'App',
+  data() {
+    return {};
+  },
   components: {
-    HelloWorld
-  }
-}
+    Header: () => import("@/components/TheHeader"),
+    Catalog: () => import("@/views/Catalog")
+  },
+  methods: {}
+};
 </script>
 
 <style lang="scss">
+@import "../public/css/style";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  a {
+    &.router-link-exact-active {
+      color: #1f1f1f;
+    }
+  }
+}
+
+select:hover,
+option:hover,
+li > a:hover,
+button:hover,
+.cart-icon_wrap:hover,
+.cart-icon_wrap > a:hover,
+.product-header__cart_inner:hover,
+.cart-products__trash:hover {
+  cursor: url("./assets/cursor.svg"), pointer;
+}
+.product-header__cart_inner:hover {
+  svg > path {
+    fill: #1f1f1f;
+  }
 }
 </style>
