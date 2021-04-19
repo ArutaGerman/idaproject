@@ -13,6 +13,7 @@
 <script>
 import { Translit } from "@/additionals/translit";
 import "whatwg-fetch";
+import { mapGetters } from "vuex";
 export default {
   mixins: [Translit],
   props: {
@@ -24,13 +25,17 @@ export default {
       
     };
   },
+   computed: {
+    ...mapGetters(["idCategories"])
+  },
   mounted() {
     this.$emit("get-categories");
   },
   methods:{
     getCategoryId(id){
-      this.$emit("get-id", id)
-      this.$emit("get-goods")
+      this.$emit("get-id", id);
+      this.$emit("get-goods");
+      this.$store.dispatch("getID", id);  
     },
   }
 };

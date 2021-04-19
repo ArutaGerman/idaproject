@@ -31,7 +31,8 @@ export const Translit = {
                     'ы': 'y',
                     'э': 'e',
                     'ю': 'u',
-                    'я': 'ya'
+                    'я': 'ya',
+                    ' ': '_'
                 },
                 n_str = [];
             str = str.replace(/[ъь]+/g, '').replace(/й/g, 'i');

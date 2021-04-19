@@ -6,8 +6,8 @@
           <div class="cart-header__title">Корзина</div>
           <div @click.prevent="$router.go(-1)" class="cart-header__close">закрыть</div>
         </div>
-        <CartIsEmpty v-if="!checkTheCartToEmpty" />
-        <CartForm v-else-if="checkTheCartToEmpty" :products="products" @delete-product="deleteProduct"/>
+        <CartIsEmpty v-if="productsInCart.length < 1" />
+        <CartForm v-else-if="productsInCart.length > 0" />
         <CartSuccess />
       </div>
     </div>
@@ -15,13 +15,12 @@
 </template>
 
 <script>
-import { bus } from "@/main.js";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       emptyVisible: true,
-      success: false,
-      products: []
+      success: false
     };
   },
   components: {
@@ -29,25 +28,12 @@ export default {
     CartForm: () => import("@/components/cart/CartForm"),
     CartSuccess: () => import("@/components/cart/CartSuccess")
   },
-  created() {
-    bus.$on("send-to-cart", products => {
-      this.products = products;
-      products = this.products
-    });
-  },
-  computed: {
-    checkTheCartToEmpty() {
-      const checkTheCart = array => {
-        if (array.length) return array;
-      };
-      return checkTheCart(this.products);
-    }
-  },
+  //получаем добавленные товары из store vuex
+  computed: mapGetters(["productsInCart"]),
   methods: {
     deleteProduct(id) {
-        let array = this.products;
-        this.products = array.filter( index => index.id !== id)
-        
+      let array = this.products;
+      this.products = array.filter(index => index.id !== id);
     }
   }
 };

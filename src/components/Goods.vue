@@ -28,7 +28,7 @@
             <img :src="$options.Url.url + item.photo" alt="Фото товара" />
           </a>
           <div class="product-header__cart">
-            <div @click="addProductToCart(index)" class="product-header__cart_inner cart-icon_wrap">
+            <div @click="addProduct(item)" class="product-header__cart_inner cart-icon_wrap">
               <svg
                 width="16"
                 height="16"
@@ -72,27 +72,18 @@
 </template>
 
 <script>
-import { bus } from "@/main.js";
-import {Url} from "../additionals/variables";
+import { Url } from "../additionals/variables";
 export default {
   Url,
   props: {
     id: Number,
     goods: Array
   },
-  data() {
-    return {
-      // url: "https://front-test.idalite.com",
-      productsInCart: []
-    };
-  },
-  mounted() {},
   methods: {
-    addProductToCart(index) {
-      this.productsInCart.push(this.goods[index]);
-      index = this.productsInCart;
-      bus.$emit("add-product", index);      
-    },
+    //добавляем (делаем мутацию) товар в store vuex в корзине через actions
+    addProduct(item) {
+      this.$store.dispatch("addToCar", item);
+    }
   }
 };
 </script>
@@ -116,7 +107,7 @@ export default {
     &:nth-child(4n + 4) {
       margin-right: 0;
     }
-    
+
     &_inner {
       flex-direction: column;
       justify-content: space-between;

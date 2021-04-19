@@ -2,11 +2,11 @@
   <header class="header">
     <div class="header-inner container">
       <a href="#" class="header__logo">TestList</a>
-      <div @click="sendDataToCart" class="header-cart_wrap cart-icon_wrap">
-        <router-link to="/cart" >
+      <div class="header-cart_wrap cart-icon_wrap">
+        <router-link to="/cart">
           <CartIcon></CartIcon>
-          <div v-if="typeof(this.counter) == 'number'" class="header-cart__count dflex">
-            <span>{{ counter }}</span>
+          <div v-if="countProducts > 0" class="header-cart__count dflex">
+            <span>{{ countProducts }}</span>
           </div>
         </router-link>
       </div>
@@ -15,28 +15,18 @@
 </template>
 
 <script>
-import { bus } from "@/main.js";
-export default {
-  data() {
-    return {
-      counter: null,
-      productsToCart: []
-    };
-  },
+import { mapGetters } from "vuex";
+export default {  
   components: {
     CartIcon: () => import("@/components/cart/CartIcon")
   },
-  created() {
-    bus.$on("add-product", index => {
-      this.counter = index.length;
-      this.productsToCart = [];
-      this.productsToCart.push(...index);
-    });
+  // считываем кол-во товаров в корзине из localStorage при перезагрузке или закрытии окна
+  mounted(){
+    this.$store.dispatch("CountProductsInCart");    
   },
-  methods: {
-    sendDataToCart() {
-      bus.$emit("send-to-cart", this.productsToCart);
-    }
+  //получение из store данных счетчика  кол-ва товаров в корзине
+  computed: {
+    ...mapGetters(["countProducts"])
   }
 };
 </script>

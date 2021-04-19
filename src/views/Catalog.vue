@@ -8,9 +8,7 @@
         <div class="catalog-header__filter">
           <label for="sort">Сортировать по:</label>
           <select v-model="sorted" @change="sort" name="sort" id="select_sort">
-            <option v-for="(item, index) in sortOptions" :key="index">
-              {{ item }}
-            </option>
+            <option v-for="(item, index) in sortOptions" :key="index">{{ item }}</option>
           </select>
         </div>
       </div>
@@ -37,12 +35,12 @@ export default {
       sorted: "",
       categories: [],
       sortOptions: ["цене", "популярности"],
-      goods: [],
+      goods: []
     };
   },
   components: {
     Goods: () => import("@/components/Goods"),
-    SideMenu: () => import("@/views/SideMenu"),
+    SideMenu: () => import("@/views/SideMenu")
   },
   mounted() {
     this.getCategories;
@@ -52,8 +50,8 @@ export default {
     getCategories() {
       let url = `https://front-test.idalite.com/api/product-category`;
       fetch(url)
-        .then((response) => response.json())
-        .then((answer) => this.categories.push(...answer));
+        .then(response => response.json())
+        .then(answer => this.categories.push(...answer));
     },
     getCategoryId(id) {
       this.id = id;
@@ -62,11 +60,11 @@ export default {
       this.goods = [];
       let url = `https://front-test.idalite.com/api/product?category=${this.id}`;
       fetch(url)
-        .then((response) => response.json())
-        .then((answer) => {
+        .then(response => response.json())
+        .then(answer => {
           this.goods.push(...answer);
-          this.sort()
-        });        
+          this.sort();
+        });
     },
     sort() {
       if (this.sorted == "цене") {
@@ -74,8 +72,8 @@ export default {
       } else {
         this.goods.sort((prev, curr) => curr.rating - prev.rating);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -4,8 +4,8 @@
     <form class="cart-form">
       <div class="cart-form__products-list cart-product">
         <div
-          v-for="item in products"
-          :key="item.id"
+          v-for="(item, index) in productsInCart"
+          :key="index"
           class="goods-item_inner cart-product__item"
         >
           <div class="cart-product__item_inner dflex_nowrap">
@@ -36,7 +36,7 @@
               </div>
             </div>
             <div class="cart-product__delete_wrap">
-              <div @click="deleteProduct(item.id)" class="cart-products__delete">
+              <div @click="deleteFromCart(item)" class="cart-products__delete">
                 <svg
                   width="32"
                   height="32"
@@ -75,34 +75,72 @@
         </div>
       </div>
       <div class="cart-form__data-send_wrap">
-        <input type="text" placeholder="Ваше имя" />
-        <input type="text" placeholder="Телефон" />
-        <input type="text" placeholder="Адрес" />
-        <button class="cart-button">Отправить</button>
+        <input v-model="name" type="text" placeholder="Ваше имя" />
+        <input v-if="focused" @focus="onFocus" type="text" placeholder="+7(___)-__-__" />
+        <input v-else v-phone v-model="phone" type="text" placeholder="Телефон" />
+        <input v-model="address" type="text" placeholder="Адрес" />
+        <button
+          @click.prevent="validateForm"
+          :class="{ active: isActive }"
+          class="cart-button"
+        >Отправить</button>
       </div>
     </form>
+    <div v-if="error" class="cart-list__validate">
+      <span>Все поля обязательные. После удачной отправки формы содержимое корзины очищается</span>
+    </div>
   </div>
 </template>
 
+
 <script>
-import {Url} from "../../additionals/variables"
+import { mapGetters } from "vuex";
+import { Url } from "../../additionals/variables";
+import { mapMutations } from "vuex";
 export default {
-    Url,
-  props: {
-    products: Array
-  },
+  Url,
   data() {
     return {
-    //   url: "https://front-test.idalite.com"
+      name: null,
+      phone: null,
+      focused: false,
+      address: null,
+      isActive: false,
+      error: false
     };
   },
+  computed: mapGetters(["productsInCart", "successCart"]),
   methods: {
-    deleteProduct(id) {
-      this.$emit("delete-product", id);
+    ...mapMutations(["deleteFromCart"]),
+    validateForm() {
+      let phone = this.phone;
+      // Проверяем верно ли заполнено поле телефона
+      // если phone имеет хоть один символ, то включаем маску, чтобы нельзя было ввести буквы
+      if (phone) {
+        phone = this.phone.replace(/\D/g, "").substring(0, 11);
+        // если телефон не полностью заполнен, то показываем ошибку и пример формата телефона
+        if (phone.length != 11) {
+          this.focused = true;
+        }
+        // если телефон вообще не заполнялся, то показываем ошибку и пример формата телефона
+      } else {
+        this.focused = true;
+      }
+      //проверяем заполнены ли все инпуты формы и если успешно, то показываем компонент успешно оформленного заказа
+      if (!this.name || !this.address || !phone || phone.length != 11) {
+        this.error = true;
+      } else if (this.name && this.address && phone) {
+        this.error = false;
+        this.$store.dispatch("cartCountProducts");
+      }
+    },
+    onFocus() {
+      this.focused = false;
     }
   }
 };
 </script>
+
 
 <style lang="scss">
 .cart-list_wrap {
