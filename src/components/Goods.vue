@@ -1,6 +1,6 @@
 <template>
   <div class="goods_wrap dflex">
-    <div v-for="(item, index) in goods" :key="index" class="goods-item">
+    <div v-for="(item, index) in sortedItem" :key="index" class="goods-item">
       <div class="goods-item_inner dflex">
         <div class="goods-item__top product-header dflex_nowrap">
           <div class="product-header__rating_wrap">
@@ -76,8 +76,7 @@ import { Url } from "../additionals/variables";
 export default {
   Url,
   props: {
-    id: Number,
-    goods: Array
+    sortedItem: Array
   },
   methods: {
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions

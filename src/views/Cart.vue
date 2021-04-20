@@ -6,7 +6,7 @@
           <div class="cart-header__title">Корзина</div>
           <div @click.prevent="$router.go(-1)" class="cart-header__close">закрыть</div>
         </div>
-        <CartIsEmpty v-if="productsInCart.length < 1" />
+        <CartIsEmpty v-if="!productsInCart || productsInCart.length < 1" />
         <CartForm v-else-if="productsInCart.length > 0" />
         <CartSuccess />
       </div>

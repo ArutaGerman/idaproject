@@ -1,10 +1,13 @@
 <template>
   <nav id="nav" class="nav">
     <ul>
-      <li v-for="(item, index) in categories" :key="index"  @click="getCategoryId(item.id)" class="nav__item">
-        <router-link :to="'/goods/' + rus_to_latin(item.name)">
-          {{ item.name }}
-        </router-link>
+      <li
+        v-for="(item, index) in categories"
+        :key="index"
+        @click="getCategoryId(item.id)"
+        class="nav__item"
+      >
+        <router-link :to="'/goods/' + rus_to_latin(item.name)">{{ item.name }}</router-link>
       </li>
     </ul>
   </nav>
@@ -17,26 +20,22 @@ import { mapGetters } from "vuex";
 export default {
   mixins: [Translit],
   props: {
-    categories: Array,
-    id: Number
+    categories: Array
   },
   data() {
-    return {
-      
-    };
+    return {};
   },
-   computed: {
+  computed: {
     ...mapGetters(["idCategories"])
   },
   mounted() {
     this.$emit("get-categories");
   },
-  methods:{
-    getCategoryId(id){
-      this.$emit("get-id", id);
-      this.$emit("get-goods");
-      this.$store.dispatch("getID", id);  
-    },
+  methods: {
+    getCategoryId(id) {
+      this.$store.dispatch("getID", id);
+      this.$emit("get-goods");      
+    }
   }
 };
 </script>

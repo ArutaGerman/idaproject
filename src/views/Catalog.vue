@@ -6,21 +6,24 @@
           <span>Каталог</span>
         </div>
         <div class="catalog-header__filter">
-          <label for="sort">Сортировать по:</label>
-          <select v-model="sorted" @change="sort" name="sort" id="select_sort">
-            <option v-for="(item, index) in sortOptions" :key="index">{{ item }}</option>
-          </select>
+          <label>Сортировать по:</label>
+          <!-- <ul @click="showSortList" class="filter">
+            {{ sorted }}
+            <li>
+              <ul v-if="sortMenu">
+                <li
+                  v-for="(item, index) in sortOptions"
+                  :key="index"
+                  @click="sortProducts(index)"
+                >{{ item.name }}</li>
+              </ul>
+            </li>
+          </ul> -->
         </div>
       </div>
       <div class="dflex">
-        <SideMenu
-          @get-categories="getCategories"
-          @get-id="getCategoryId"
-          @get-goods="getGoods"
-          :categories="categories"
-          :id="id"
-        ></SideMenu>
-        <Goods :goods="goods" @get-goods="getGoods"></Goods>
+        <SideMenu @get-categories="getCategories" @get-goods="getGoods" :categories="categories"></SideMenu>
+        <Goods :sortedItem="sortedItem" @get-goods="getGoods"></Goods>
       </div>
     </div>
   </main>
@@ -28,51 +31,74 @@
 
 <script>
 import "whatwg-fetch";
+import { mapGetters } from "vuex";
+import { fetchProducts, fetchCategories } from "../api/api";
 export default {
   data() {
     return {
-      id: null,
-      sorted: "",
+      // sorted: "популярности",
       categories: [],
-      sortOptions: ["цене", "популярности"],
-      goods: []
+      // sortOptions: [
+      //   { name: "По цене", value: "цене" },
+      //   { name: "По популярности", value: "популярности" }
+      // ],
+      goods: [],
+      sortMenu: false
     };
   },
   components: {
     Goods: () => import("@/components/Goods"),
     SideMenu: () => import("@/views/SideMenu")
   },
+  computed: {
+    ...mapGetters(["idCategories"]),
+    // Отслеживаем изменения в параметре сортировки
+    sortedItem: function() {
+      const sort = array => {
+        switch (array) {
+          case "цене":
+            this.goods.sort((prev, curr) => prev.price - curr.price);
+            return this.goods;
+          case "популярности":
+            this.goods.sort((prev, curr) => curr.rating - prev.rating);
+            return this.goods;
+          default:
+            this.goods.sort((prev, curr) => curr.rating - prev.rating);
+            return this.goods;
+        }
+      };
+      return sort(this.sorted);
+    }
+  },
   mounted() {
-    this.getCategories;
-    this.getGoods;
+    this.getCategories;  //Запускаем получение категорий оп api
+    this.getGoods;        //Запускаем получение товаров по api
+    // Если адрес страницы содержит goods, то выполняем запрос на api
+    if (window.location.href.match(/goods/)){
+      // Если есть localStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из localStorage, иначе id = 1
+      JSON.parse(localStorage.getItem("idCategory")) ? this.$store.commit("getIdCategories", JSON.parse(localStorage.getItem("idCategory"))) : this.idCategories = 1;
+      fetchProducts(this.idCategories, this.goods);
+    } else {
+      fetchProducts(1, this.goods); // Если адрес не сожердит goods, то запрашиваем по-умолчанию категорию с id = 1
+    }    
   },
   methods: {
+    // Получаем категории товаров из api
     getCategories() {
-      let url = `https://front-test.idalite.com/api/product-category`;
-      fetch(url)
-        .then(response => response.json())
-        .then(answer => this.categories.push(...answer));
+      fetchCategories(this.categories);
     },
-    getCategoryId(id) {
-      this.id = id;
-    },
+    // Получаем товары по выбранной категории из api и сортируем их
     getGoods() {
       this.goods = [];
-      let url = `https://front-test.idalite.com/api/product?category=${this.id}`;
-      fetch(url)
-        .then(response => response.json())
-        .then(answer => {
-          this.goods.push(...answer);
-          this.sort();
-        });
+      fetchProducts(this.idCategories, this.goods);
     },
-    sort() {
-      if (this.sorted == "цене") {
-        this.goods.sort((prev, curr) => prev.price - curr.price);
-      } else {
-        this.goods.sort((prev, curr) => curr.rating - prev.rating);
-      }
-    }
+    // // Показываем/скрываем опции фильтра сотрировки
+    // showSortList() {
+    //   this.sortMenu = !this.sortMenu;
+    // },
+    // sortProducts(index) {
+    //   this.sorted = this.sortOptions[index].value;
+    // }
   }
 };
 </script>
