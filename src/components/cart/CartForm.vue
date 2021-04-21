@@ -131,7 +131,8 @@ export default {
         this.error = true;
       } else if (this.name && this.address && phone) {
         this.error = false;
-        this.$store.dispatch("cartCountProducts");
+        this.$store.dispatch("CountProductsInCart");
+        this.$store.dispatch("showOrderSuccess");
       }
     },
     onFocus() {

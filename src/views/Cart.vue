@@ -2,13 +2,10 @@
   <div class="cart cart-block_wrapper dflex">
     <div class="cart-block_inner">
       <div class="cart_inner">
-        <div class="cart-header dflex">
-          <div class="cart-header__title">Корзина</div>
-          <div @click.prevent="$router.go(-1)" class="cart-header__close">закрыть</div>
-        </div>
-        <CartIsEmpty v-if="!productsInCart || productsInCart.length < 1" />
-        <CartForm v-else-if="productsInCart.length > 0" />
-        <CartSuccess />
+        <CartHeader></CartHeader>
+        <CartIsEmpty v-if="(!productsInCart || productsInCart.length < 1) && !successCart" />
+        <CartForm v-else-if="productsInCart.length > 0 && !successCart" />
+        <CartSuccess v-else></CartSuccess>
       </div>
     </div>
   </div>
@@ -24,12 +21,13 @@ export default {
     };
   },
   components: {
+    CartHeader: () => import("@/components/cart/CartHeader"),
     CartIsEmpty: () => import("@/components/cart/CartIsEmpty"),
     CartForm: () => import("@/components/cart/CartForm"),
     CartSuccess: () => import("@/components/cart/CartSuccess")
   },
   //получаем добавленные товары из store vuex
-  computed: mapGetters(["productsInCart"]),
+  computed: mapGetters(["productsInCart", "successCart"]),
   methods: {
     deleteProduct(id) {
       let array = this.products;

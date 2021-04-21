@@ -7,23 +7,12 @@
         </div>
         <div class="catalog-header__filter">
           <label>Сортировать по:</label>
-          <!-- <ul @click="showSortList" class="filter">
-            {{ sorted }}
-            <li>
-              <ul v-if="sortMenu">
-                <li
-                  v-for="(item, index) in sortOptions"
-                  :key="index"
-                  @click="sortProducts(index)"
-                >{{ item.name }}</li>
-              </ul>
-            </li>
-          </ul> -->
+          <SortList @sort-param="sortProducts"></SortList>
         </div>
       </div>
       <div class="dflex">
         <SideMenu @get-categories="getCategories" @get-goods="getGoods" :categories="categories"></SideMenu>
-        <Goods :sortedItem="sortedItem" @get-goods="getGoods"></Goods>
+        <Goods :sortedProducts="sortedProducts" @get-goods="getGoods"></Goods>
       </div>
     </div>
   </main>
@@ -36,24 +25,21 @@ import { fetchProducts, fetchCategories } from "../api/api";
 export default {
   data() {
     return {
-      // sorted: "популярности",
       categories: [],
-      // sortOptions: [
-      //   { name: "По цене", value: "цене" },
-      //   { name: "По популярности", value: "популярности" }
-      // ],
       goods: [],
-      sortMenu: false
+      sortParam: null
     };
   },
   components: {
     Goods: () => import("@/components/Goods"),
-    SideMenu: () => import("@/views/SideMenu")
+    SideMenu: () => import("@/views/SideMenu"),
+    SortList: () => import("@/components/SortList")
   },
   computed: {
     ...mapGetters(["idCategories"]),
+
     // Отслеживаем изменения в параметре сортировки
-    sortedItem: function() {
+    sortedProducts: function() {
       const sort = array => {
         switch (array) {
           case "цене":
@@ -67,38 +53,40 @@ export default {
             return this.goods;
         }
       };
-      return sort(this.sorted);
+      return sort(this.sortParam);
     }
   },
+  
   mounted() {
-    this.getCategories;  //Запускаем получение категорий оп api
-    this.getGoods;        //Запускаем получение товаров по api
+    this.getCategories; //Запускаем получение категорий оп api
+    this.getGoods; //Запускаем получение товаров по api
+
     // Если адрес страницы содержит goods, то выполняем запрос на api
-    if (window.location.href.match(/goods/)){
+    if (window.location.href.match(/goods/)) {
       // Если есть localStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из localStorage, иначе id = 1
-      JSON.parse(localStorage.getItem("idCategory")) ? this.$store.commit("getIdCategories", JSON.parse(localStorage.getItem("idCategory"))) : this.idCategories = 1;
+      JSON.parse(localStorage.getItem("idCategory")) ? this.$store.commit("getIdCategories", JSON.parse(localStorage.getItem("idCategory"))) : (this.idCategories = 1);
       fetchProducts(this.idCategories, this.goods);
     } else {
       fetchProducts(1, this.goods); // Если адрес не сожердит goods, то запрашиваем по-умолчанию категорию с id = 1
-    }    
+    }
   },
+
   methods: {
     // Получаем категории товаров из api
     getCategories() {
       fetchCategories(this.categories);
     },
+
     // Получаем товары по выбранной категории из api и сортируем их
     getGoods() {
       this.goods = [];
       fetchProducts(this.idCategories, this.goods);
     },
-    // // Показываем/скрываем опции фильтра сотрировки
-    // showSortList() {
-    //   this.sortMenu = !this.sortMenu;
-    // },
-    // sortProducts(index) {
-    //   this.sorted = this.sortOptions[index].value;
-    // }
+
+    // Получаем параметр для сортировки из SortList.vue
+    sortProducts(param) {
+      this.sortParam = param;
+    }
   }
 };
 </script>

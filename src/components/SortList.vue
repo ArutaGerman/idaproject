@@ -6,7 +6,7 @@
         <li
           v-for="(item, index) in sortOptions"
           :key="index"
-          @click="sortProducts(index)"
+          @click="sortProducts(index, sorted)"
         >{{ item.name }}</li>
       </ul>
     </li>
@@ -17,7 +17,7 @@
 export default {
   data() {
     return {
-        sorted: "популярности",
+      sorted: "популярности",
       sortOptions: [
         { name: "По цене", value: "цене" },
         { name: "По популярности", value: "популярности" }
@@ -25,13 +25,16 @@ export default {
       sortMenu: false
     };
   },
-  methods:{
-      // Показываем/скрываем опции фильтра сотрировки
+  methods: {
+    // Показываем/скрываем опции фильтра сотрировки
     showSortList() {
       this.sortMenu = !this.sortMenu;
     },
-    sortProducts(index) {
+    sortProducts(index, param) {
       this.sorted = this.sortOptions[index].value;
+      param = this.sorted;
+
+      this.$emit("sort-param", param);
     }
   }
 };
