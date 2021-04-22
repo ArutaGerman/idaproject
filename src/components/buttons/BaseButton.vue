@@ -1,6 +1,6 @@
 <template>
   <button @click="emitValidateForm" class="btn">
-    <slot>Отправить</slot>
+    <slot></slot>
   </button>
 </template>
 

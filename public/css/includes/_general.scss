@@ -52,11 +52,6 @@ body {
   font-family: 'PT Sans', sans-serif;
 }
 
-.container{
-  width: 100%;
-  padding: 0 5.5rem;
-}
-
 .dnone{
   display: none;
 }
@@ -64,6 +59,11 @@ body {
 .dflex{
   display: flex;
   flex-wrap: wrap; 
+}
+
+.dflex_a-center{
+  display: flex;
+  align-items: center;
 }
 
 .dflex_nowrap{
@@ -75,4 +75,7 @@ body {
   display: block;
 }
 
+.s-between{
+  justify-content: space-between;
+}
 //Эффекты

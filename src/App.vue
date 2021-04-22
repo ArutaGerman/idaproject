@@ -18,22 +18,22 @@ export default {
 
 <style lang="scss">
 @import "../public/css/style";
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+#app { 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $black;
 }
 
 #nav {
   a {
     &.router-link-exact-active {
-      color: #1f1f1f;
+      color: $black;
       text-decoration: underline;
     }
   }
 }
+
 
 select:hover,
 option:hover,
@@ -48,7 +48,7 @@ button:hover,
 }
 .product-header__cart_inner:hover {
   svg > path {
-    fill: #1f1f1f;
+    fill: $black;
   }
 }
 </style>
