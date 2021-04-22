@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header />
-    <Catalog />
+    <Header></Header>
+    <Catalog></Catalog>
     <router-view />
   </div>
 </template>
@@ -9,14 +9,10 @@
 <script>
 // import { bus } from "@/main.js";
 export default {
-  data() {
-    return {};
-  },
   components: {
     Header: () => import("@/components/TheHeader"),
     Catalog: () => import("@/views/Catalog")
-  },
-  methods: {}
+  }
 };
 </script>
 
@@ -34,6 +30,7 @@ export default {
   a {
     &.router-link-exact-active {
       color: #1f1f1f;
+      text-decoration: underline;
     }
   }
 }
@@ -42,6 +39,7 @@ select:hover,
 option:hover,
 li > a:hover,
 button:hover,
+.btn > *:hover,
 .cart-icon_wrap:hover,
 .cart-icon_wrap > a:hover,
 .product-header__cart_inner:hover,

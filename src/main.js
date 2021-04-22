@@ -15,7 +15,7 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-
+// Компонент для поля ввода телефона, дополнительно подключает @/components/common/PhoneInput.vue
 Vue.directive('phone', {
   bind(el) {
     el.oninput = function (e) {

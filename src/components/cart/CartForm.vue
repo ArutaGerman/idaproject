@@ -1,7 +1,7 @@
 <template>
   <div class="cart-list_wrap">
     <span class="cart-list__title">Товары в корзине</span>
-    <form class="cart-form">
+    <form @submit.prevent="validateForm" id="cart_form" class="cart-form">
       <div class="cart-form__products-list cart-product">
         <div
           v-for="(item, index) in productsInCart"
@@ -77,13 +77,9 @@
       <div class="cart-form__data-send_wrap">
         <input v-model="name" type="text" placeholder="Ваше имя" />
         <input v-if="focused" @focus="onFocus" type="text" placeholder="+7(___)-__-__" />
-        <input v-else v-phone v-model="phone" type="text" placeholder="Телефон" />
+        <input v-else v-phone v-model="phone" maxlength="18" type="text" placeholder="Телефон" />
         <input v-model="address" type="text" placeholder="Адрес" />
-        <button
-          @click.prevent="validateForm"
-          :class="{ active: isActive }"
-          class="cart-button"
-        >Отправить</button>
+        <BaseButton @has-click="validateForm"></BaseButton>
       </div>
     </form>
     <div v-if="error" class="cart-list__validate">
@@ -106,18 +102,29 @@ export default {
       focused: false,
       address: null,
       isActive: false,
-      error: false
+      error: false,
+      btnText: "Назад"
     };
+  },
+  components: {
+    BaseButton: () => import("@/components/buttons/BaseButton")
   },
   computed: mapGetters(["productsInCart", "successCart"]),
   methods: {
     ...mapMutations(["deleteFromCart"]),
+
+    // Флаг для фокуса на поле телефона при ошибке ввода
+    onFocus() {
+      this.focused = false;
+    },
+
+    // Метод проверки заполнена ли верно форма заказа
     validateForm() {
       let phone = this.phone;
       // Проверяем верно ли заполнено поле телефона
       // если phone имеет хоть один символ, то включаем маску, чтобы нельзя было ввести буквы
       if (phone) {
-        phone = this.phone.replace(/\D/g, "").substring(0, 11);
+        phone = this.phone.replace(/\D/g, "").substring(0, 11); // Создаём переменную phone, которая преобразовывается в телефон без знаков для передачи на сервер
         // если телефон не полностью заполнен, то показываем ошибку и пример формата телефона
         if (phone.length != 11) {
           this.focused = true;
@@ -134,10 +141,9 @@ export default {
         this.$store.dispatch("CountProductsInCart");
         this.$store.dispatch("showOrderSuccess");
       }
-    },
-    onFocus() {
-      this.focused = false;
     }
+
+    // closeCart
   }
 };
 </script>

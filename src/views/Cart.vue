@@ -7,6 +7,7 @@
         <CartForm v-else-if="productsInCart.length > 0 && !successCart" />
         <CartSuccess v-else></CartSuccess>
       </div>
+      <router-view />
     </div>
   </div>
 </template>

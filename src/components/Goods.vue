@@ -30,12 +30,9 @@
             <img :src="$options.Url.url + item.photo" alt="Фото товара" />
           </a>
           <div class="product-header__cart">
-            <div
-              v-if="!checkCart(item)"
-              @click="addProduct(item)"
-              class="product-header__cart_inner cart-icon_wrap"
-            >
+            <div @click="addProduct(item)" class="product-header__cart_inner cart-icon_wrap">
               <svg
+                v-if="!checkProductsInCart(item)"
                 width="16"
                 height="16"
                 viewBox="0 0 32 32"
@@ -61,10 +58,9 @@
                   fill="#959DAD"
                 />
               </svg>
+              <CartIcon v-else></CartIcon>
             </div>
-            <CartIcon v-else></CartIcon>
           </div>
-          
         </div>
         <a href="#" class="goods-item__bottom">
           <div class="goods-item__title">
@@ -88,19 +84,17 @@ export default {
     sortedProducts: Array
   },
   components: {
-    CartIcon: () => import("@/components/cart/CartIcon")
+    CartIcon: () => import("@/components/common/CartIcon")
   },
   computed: mapGetters(["productsInCart"]),
   methods: {
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions
     addProduct(item) {
       this.$store.dispatch("addToCart", item);
-      
       this.$forceUpdate();
-    console.log(this.checkCart(item));
     },
-    checkCart(item) {
-      return this.productsInCart.includes(item);
+    checkProductsInCart(item) {
+      return this.productsInCart.find(itemInCart => item.id == itemInCart.id);
     }
   }
 };

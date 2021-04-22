@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header-inner container">
-      <a href="#" class="header__logo">TestList</a>
+      <HeaderLogo></HeaderLogo>
       <div class="header-cart_wrap cart-icon_wrap">
         <router-link to="/cart">
           <CartIcon></CartIcon>
@@ -16,13 +16,14 @@
 
 <script>
 import { mapGetters } from "vuex";
-export default {  
+export default {
   components: {
-    CartIcon: () => import("@/components/cart/CartIcon")
+    HeaderLogo: () => import("@/components/header/HeaderLogo"),
+    CartIcon: () => import("@/components/common/CartIcon")
   },
   // считываем кол-во товаров в корзине из localStorage при перезагрузке или закрытии окна
-  mounted(){
-    this.$store.dispatch("CountProductsInCart");    
+  mounted() {
+    this.$store.dispatch("CountProductsInCart");
   },
   //получение из store данных счетчика  кол-ва товаров в корзине
   computed: {
@@ -45,11 +46,7 @@ export default {
     justify-content: space-between;
     align-items: center;
   }
-  &__logo {
-    font-weight: bold;
-    font-size: 22px;
-    line-height: 28px;
-  }
+
   .header-cart_wrap {
     position: relative;
   }

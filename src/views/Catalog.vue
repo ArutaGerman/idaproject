@@ -1,16 +1,16 @@
 <template>
   <main class="main-content">
-    <div class="container">
-      <div class="main-content__catalog catalog-header dflex">
+    <div :class="$style['main-content_inner']">
+      <div :class="[$style.dflex, $style['main-content__header_wrap']]" >
         <div class="catalog-header__title">
           <span>Каталог</span>
         </div>
-        <div class="catalog-header__filter">
-          <label>Сортировать по:</label>
+        <div :class="$style.dflex">
+          <span :class="$style['sort-title']">Сортировать по: </span>
           <SortList @sort-param="sortProducts"></SortList>
         </div>
       </div>
-      <div class="dflex">
+      <div :class="$style.dflex">
         <SideMenu @get-categories="getCategories" @get-goods="getGoods" :categories="categories"></SideMenu>
         <Goods :sortedProducts="sortedProducts" @get-goods="getGoods"></Goods>
       </div>
@@ -65,6 +65,7 @@ export default {
     if (window.location.href.match(/goods/)) {
       // Если есть localStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из localStorage, иначе id = 1
       JSON.parse(localStorage.getItem("idCategory")) ? this.$store.commit("getIdCategories", JSON.parse(localStorage.getItem("idCategory"))) : (this.idCategories = 1);
+      
       fetchProducts(this.idCategories, this.goods);
     } else {
       fetchProducts(1, this.goods); // Если адрес не сожердит goods, то запрашиваем по-умолчанию категорию с id = 1
@@ -91,9 +92,20 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.main-content__catalog {
-  width: 100%;
+<style lang="scss" module>
+@import "../../public/css/style";
+
+.main-content__header_wrap{
   justify-content: space-between;
+  padding-bottom: 2.125rem
 }
+
+.main-content_inner{
+  padding: 2rem 5.5rem 4.125rem 5.5rem
+}
+
+.sort-title{
+  margin-right: 0.375rem
+}
+
 </style>
