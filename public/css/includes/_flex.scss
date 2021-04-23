@@ -1,0 +1,22 @@
+.dnone{
+    display: none;
+  }
+  
+  .dflex{
+    display: flex;
+    flex-wrap: wrap; 
+  }
+  
+  .dflex_a-center{
+    display: flex;
+    align-items: center;
+  }
+  
+  .dflex_nowrap{
+    display: flex;
+    flex-wrap: nowrap; 
+  }
+  
+  .dblock{
+    display: block;
+  }

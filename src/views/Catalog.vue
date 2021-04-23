@@ -104,8 +104,9 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import "../../public/css/style";
+@import "../../public/css/includes/_flex";
 @import "../../public/css/includes/_line-height";
+@import "../../public/css/includes/_colors";
 
 .main-content {
   position: relative;

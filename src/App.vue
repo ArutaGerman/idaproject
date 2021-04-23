@@ -42,12 +42,13 @@ button:hover,
 .btn > *:hover,
 .cart-icon_wrap:hover,
 .cart-icon_wrap > a:hover,
+.cart-product__delete:hover,
 .product-header__cart_inner:hover,
-.cart-products__trash:hover {
+svg:hover {
   cursor: url("./assets/cursor.svg"), pointer;
 }
-.product-header__cart_inner:hover {
-  svg > path {
+svg:hover {
+  > path {
     fill: $black;
   }
 }

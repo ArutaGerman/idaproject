@@ -1,36 +1,26 @@
 <template>
-  <div class="goods_wrap dflex">
-    <div v-for="(item, index) in sortedProducts" :key="index" class="goods-item">
-      <div class="goods-item_inner dflex">
-        <div class="goods-item__top product-header dflex_nowrap">
-          <div class="product-header__rating_wrap">
-            <div class="product-header__rating_inner dflex_nowrap">
-              <div class="product-header__rating-star">
-                <div>
-                  <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M10 3.125C10.2379 3.125 10.4552 3.26005 10.5605 3.47336L12.3464 7.09154L16.3404 7.67532C16.5758 7.70972 16.7712 7.87473 16.8445 8.10098C16.9179 8.32723 16.8565 8.57552 16.6861 8.74147L13.7966 11.5559L14.4785 15.5318C14.5187 15.7663 14.4223 16.0033 14.2299 16.1432C14.0374 16.283 13.7822 16.3014 13.5716 16.1907L10 14.3124L6.42843 16.1907C6.21785 16.3014 5.96267 16.283 5.77018 16.1432C5.5777 16.0033 5.48129 15.7663 5.52151 15.5318L6.20344 11.5559L3.31394 8.74147C3.14355 8.57552 3.08213 8.32723 3.15549 8.10098C3.22885 7.87473 3.42428 7.70972 3.65963 7.67532L7.6536 7.09154L9.43958 3.47336C9.54487 3.26005 9.76213 3.125 10 3.125ZM10 5.16203L8.62921 7.93914C8.53825 8.12342 8.36251 8.25121 8.15916 8.28093L5.09278 8.72913L7.3111 10.8898C7.45852 11.0334 7.52581 11.2403 7.49102 11.4432L6.96763 14.4948L9.70911 13.0531C9.89122 12.9573 10.1088 12.9573 10.2909 13.0531L13.0324 14.4948L12.509 11.4432C12.4742 11.2403 12.5415 11.0334 12.6889 10.8898L14.9073 8.72913L11.8409 8.28093C11.6375 8.25121 11.4618 8.12342 11.3708 7.93914L10 5.16203Z"
-                      fill="#F2C94C"
-                    />
-                    <path
-                      d="M6.5 11L4 8H10H16L13.5 11V14.5L13 15.5L10 14L9 14.5L6.5 15.5V14.5V11Z"
-                      fill="#F2C94C"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div class="product-header__rating dflex">
+  <div :class="[$style['goods_wrap'], $style.dflex]">
+    <div v-for="(item, index) in sortedProducts" :key="index" :class="$style['goods-item']">
+      <div :class="[$style['goods-item_inner'], $style.dflex]">
+        <div :class="[$style['product-header'], $style['dflex_nowrap']]">
+          <div :class="$style['rating_wrap']">
+            <div :class="[$style['rating_inner'], $style['dflex_nowrap']]">
+              <i :class="$style['rating-star']"></i>
+              <div :class="[$style['rating-text'],$style.dflex]">
                 <span>{{ item.rating }}</span>
               </div>
             </div>
           </div>
-          <a href="#" class="product-header__img">
-            <img :src="$options.Url.url + item.photo" alt="Фото товара" />
+          <a href="#" :class="$style['img_wrap']">
+            <img
+              :src="$options.Url.url + item.photo"
+              :class="$style.img"
+              :title="item.name"
+              alt="Фото товара"
+            />
           </a>
-          <div class="product-header__cart">
-            <div @click="addProduct(item)" class="product-header__cart_inner cart-icon_wrap">
+          <div :class="$style['cart-icon_wrap']">
+            <div @click="addProduct(item)" :class="$style['cart-icon']">
               <svg
                 v-if="!checkProductsInCart(item)"
                 width="16"
@@ -62,11 +52,11 @@
             </div>
           </div>
         </div>
-        <a href="#" class="goods-item__bottom">
-          <div class="goods-item__title">
-            <span>{{ item.name }}</span>
+        <a href="#" :class="$style['bottom_wrap']">
+          <div :class="$style['goods-item__title']">
+            <span :title="item.name">{{ item.name }}</span>
           </div>
-          <div class="goods-item__price">
+          <div :class="$style['goods-item__price']">
             <span>{{ item.price }}</span>
           </div>
         </a>
@@ -100,10 +90,23 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
+@import "../../public/css/style";
+@import "../../public/css/includes/_font";
+@import "../../public/css/includes/_colors";
+
 .goods_wrap {
   width: 100%;
   max-width: 69rem;
+
+  .goods-item:nth-child(1),
+  .goods-item:nth-child(4n + 5) {
+    margin-left: 0;
+  }
+
+  .goods-item:nth-child(4n + 4) {
+    margin-right: 0;
+  }
 
   .goods-item {
     width: 100%;
@@ -111,80 +114,77 @@ export default {
     padding-bottom: 1rem;
     margin: 0 0.5rem;
 
-    &:nth-child(1),
-    &:nth-child(4n + 5) {
-      margin-left: 0;
-    }
-
-    &:nth-child(4n + 4) {
-      margin-right: 0;
-    }
-
-    &_inner {
+    .goods-item_inner {
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       height: 100%;
       padding: 1rem;
-      background: #ffffff;
+      background: $white;
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
       border-radius: 8px;
 
       .product-header {
-        &__rating_wrap {
+        .rating_wrap {
           font-style: normal;
           font-weight: bold;
           font-size: 10px;
           line-height: 13px;
-          color: #f2c94c;
         }
 
-        &__rating {
-          align-items: center;
-        }
-
-        &__rating_inner {
+        .rating_inner {
           padding-right: 0.6875rem;
+
+          .rating-star {
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: url("../assets/star.svg") no-repeat center;
+          }
+
+          .rating-text {
+            color: $yellow;
+            align-items: center;
+          }
         }
 
-        &__rating-star {
-          width: 20px;
-          height: 20px;
-        }
-
-        &__img {
+        .img_wrap {
           flex-grow: 1;
           display: block;
 
-          img {
+          .img {
             width: 100%;
           }
         }
-        &__cart_inner {
-          padding-left: 0.6875rem;
+
+        .cart-icon_wrap {
+          .cart-icon {
+            margin-left: 0.6875rem;
+          }
         }
       }
     }
 
-    &__bottom {
+    .bottom_wrap {
       display: block;
       width: 100%;
       text-align: left;
-      font-size: 14px;
+      font-size: $fz14px;
       line-height: 18px;
-    }
 
-    &__title {
-      font-weight: normal;
-      color: #59606d;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
+      .goods-item__title {
+        font-weight: normal;
+        color: $grey;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
 
-    &__price {
-      font-weight: bold;
-      color: #1f1f1f;
+      .goods-item__price {
+        font-weight: bold;
+        color: $black;
+        padding-top: 0.375rem;
+      }
     }
   }
 }

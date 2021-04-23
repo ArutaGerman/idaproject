@@ -1,42 +1,33 @@
 <template>
-  <div class="cart-list_wrap">
+  <div :class="$style['cart-list_wrap']">
     <span class="cart-list__title">Товары в корзине</span>
     <form @submit.prevent="validateForm" id="cart_form" class="cart-form">
-      <div class="cart-form__products-list cart-product">
+      <div :class="$style['cart-product']">
         <div
           v-for="(item, index) in productsInCart"
           :key="index"
-          class="goods-item_inner cart-product__item"
+          :class="[$style['goods-item_inner'], $style['cart-product__item']]"
         >
-          <div class="cart-product__item_inner dflex_nowrap">
-            <div class="cart-product__img">
-              <img :src="$options.Url.url + item.photo" alt="Изображение товара" />
+          <div :class="[$style['cart-product__item_inner'], $style['dflex_nowrap']]">
+            <div :class="$style['cart-product__img_wrap']">
+              <img
+                :src="$options.Url.url + item.photo"
+                :class="$style['cart-product__img']"
+                alt="Изображение товара"
+              />
             </div>
-            <div class="cart-product__info dflex">
+            <div :class="[$style['cart-product__info'], $style.dflex]">
               <div class="cart-product__title">{{item.name}}</div>
-              <div class="cart-product__price">{{item.price}}</div>
+              <div :class="$style['cart-product__price']">{{item.price}} &#x20bd;</div>
               <div class="cart-product__rating_wrap dflex">
-                <div class="cart-product__rating-star">
-                  <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M10 3.125C10.2379 3.125 10.4552 3.26005 10.5605 3.47336L12.3464 7.09154L16.3404 7.67532C16.5758 7.70972 16.7712 7.87473 16.8445 8.10098C16.9179 8.32723 16.8565 8.57552 16.6861 8.74147L13.7966 11.5559L14.4785 15.5318C14.5187 15.7663 14.4223 16.0033 14.2299 16.1432C14.0374 16.283 13.7822 16.3014 13.5716 16.1907L10 14.3124L6.42843 16.1907C6.21785 16.3014 5.96267 16.283 5.77018 16.1432C5.5777 16.0033 5.48129 15.7663 5.52151 15.5318L6.20344 11.5559L3.31394 8.74147C3.14355 8.57552 3.08213 8.32723 3.15549 8.10098C3.22885 7.87473 3.42428 7.70972 3.65963 7.67532L7.6536 7.09154L9.43958 3.47336C9.54487 3.26005 9.76213 3.125 10 3.125ZM10 5.16203L8.62921 7.93914C8.53825 8.12342 8.36251 8.25121 8.15916 8.28093L5.09278 8.72913L7.3111 10.8898C7.45852 11.0334 7.52581 11.2403 7.49102 11.4432L6.96763 14.4948L9.70911 13.0531C9.89122 12.9573 10.1088 12.9573 10.2909 13.0531L13.0324 14.4948L12.509 11.4432C12.4742 11.2403 12.5415 11.0334 12.6889 10.8898L14.9073 8.72913L11.8409 8.28093C11.6375 8.25121 11.4618 8.12342 11.3708 7.93914L10 5.16203Z"
-                      fill="#F2C94C"
-                    />
-                    <path
-                      d="M6.5 11L4 8H10H16L13.5 11V14.5L13 15.5L10 14L9 14.5L6.5 15.5V14.5V11Z"
-                      fill="#F2C94C"
-                    />
-                  </svg>
-                </div>
+                <i :class="$style['cart-product__rating-star']"></i>
                 <div class="cart-product__rating-count">
                   <span>{{item.rating}}</span>
                 </div>
               </div>
             </div>
-            <div class="cart-product__delete_wrap">
-              <div @click="deleteFromCart(item)" class="cart-products__delete">
+            <div :class="[$style['cart-product__delete_wrap'], $style.dflex]">
+              <div @click="deleteFromCart(item)" :class="$style['cart-product__delete']">
                 <svg
                   width="32"
                   height="32"
@@ -149,53 +140,67 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" module>
+@import "../../../public/css/style";
+@import "../../../public/css/includes/_font";
+
 .cart-list_wrap {
+  padding-top: 7.3125rem;
+
   .cart-product {
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
-    &__item {
+    .cart-product__item {
       width: 22.75rem;
       height: 7.5rem;
     }
 
-    &__item_inner {
+    .cart-product__item_inner {
       width: 100%;
       height: 100%;
       padding: 0.9375rem 1.5625rem;
-    }
 
-    &__img {
-      max-width: 8.125rem;
-      height: 100%;
-
-      img {
+      .cart-product__img_wrap {
+        max-width: 8.125rem;
         height: 100%;
+
+        .cart-product__img {
+          height: 100%;
+          width: auto;
+        }
+      }
+
+      .cart-product__info {
+        font-size: 14px;
+        line-height: 18px;
+        color: $grey;
+        flex-grow: 1;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        .cart-product__price {
+          font-size: $fz14px;
+          font-weight: bold;
+          line-height: 18px;
+          color: $black;
+        }
+
+        .cart-product__rating-star {
+          width: 1.25rem;
+          height: 1.25rem;         
+          background: url("../../assets/star.svg") no-repeat center;
+        }
       }
     }
+    .cart-product__delete_wrap {
+      align-items: center;
 
-    &__info {
-      flex-grow: 1;
-      flex-direction: column;
-      justify-content: space-between;
-      font-size: 14px;
-      line-height: 18px;
+      .cart-product__delete {
+        width: 2rem;
+        height: 2rem;
+      }
     }
-
-    &__title {
-      color: #59606d;
-    }
-
-    &__price {
-      color: #1f1f1f;
-    }
-
-    &__rating {
-      color: #f2c94c;
-    }
-  }
-  .cart-products__delete > svg:hover > path {
-    fill: #1f1f1f;
   }
 }
 </style>
