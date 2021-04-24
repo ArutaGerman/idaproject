@@ -1,11 +1,17 @@
 <template>
-  <div :class="[$style['block_wrapper'], $style.dflex]">
-    <div :class="$style['block_inner']">
-      <div :class="$style['cart_inner']">
+  <div :class="[$style.blockWrapper, $style.dflex]">
+    <div :class="$style.blockInner">
+      <div :class="$style.inner">
         <CartHeader></CartHeader>
-        <CartIsEmpty v-if="(!productsInCart || productsInCart.length < 1) && !successCart" />
-        <CartForm v-else-if="productsInCart.length > 0 && !successCart" />
-        <CartSuccess v-else></CartSuccess>
+        <div :class="$style.content">
+          <CartIsEmpty
+            v-if="
+              (!productsInCart || productsInCart.length < 1) && !successCart
+            "
+          />
+          <CartForm v-else-if="productsInCart.length > 0 && !successCart" />
+          <CartSuccess v-else></CartSuccess>
+        </div>
       </div>
       <router-view />
     </div>
@@ -18,23 +24,23 @@ export default {
   data() {
     return {
       emptyVisible: true,
-      success: false
+      success: false,
     };
   },
   components: {
     CartHeader: () => import("@/components/cart/CartHeader"),
     CartIsEmpty: () => import("@/components/cart/CartIsEmpty"),
     CartForm: () => import("@/components/cart/CartForm"),
-    CartSuccess: () => import("@/components/cart/CartSuccess")
+    CartSuccess: () => import("@/components/cart/CartSuccess"),
   },
   //получаем добавленные товары из store vuex
   computed: mapGetters(["productsInCart", "successCart"]),
   methods: {
     deleteProduct(id) {
       let array = this.products;
-      this.products = array.filter(index => index.id !== id);
-    }
-  }
+      this.products = array.filter((index) => index.id !== id);
+    },
+  },
 };
 </script>
 
@@ -42,7 +48,7 @@ export default {
 @import "../../public/css/includes/_flex";
 @import "../../public/css/includes/_colors";
 
-.block_wrapper {
+.blockWrapper {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -53,7 +59,7 @@ export default {
   justify-content: flex-end;
 }
 
-.block_wrapper:before {
+.blockWrapper:before {
   content: "";
   width: 100%;
   height: 100%;
@@ -62,15 +68,19 @@ export default {
   opacity: 0.8;
 }
 
-.block_inner {
+.blockInner {
   width: 28.75rem;
-  height: 100%;
   background: $white;
+  position: relative;
   box-shadow: -4px 0px 16px rgba(0, 0, 0, 0.05);
   border-radius: 8px 0px 0px 8px;
 }
 
-.cart_inner {
+.inner {
   padding: 0 3rem 3.25rem 3rem;
+
+  .content {
+    padding-top: 2rem;
+  }
 }
 </style>

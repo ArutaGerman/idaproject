@@ -1,16 +1,11 @@
 <template>
-  <ul
-    @click="showSortList"
-    :class="[$style['sort-list_wrap'], $style['dflex_a-center']]"
-  >
-    <li :class="$style['sort-param']">
+  <ul @click="showSortList" :class="[$style.wrap]">
+    <li :class="$style.sortParam">
       {{ sorted }}
     </li>
-
-    <div :class="$style['arrow-down']"></div>
-
-    <li :class="[{ [$style['sort-list']]: sortMenu }, $style.dnone]">
-      <ul :class="$style['inner']">
+    <div :class="$style.arrowDown"></div>
+    <li :class="[{ [$style.sortList]: sortMenu }, $style.dnone]">
+      <ul :class="$style.inner">
         <li
           v-for="(item, index) in sortOptions"
           :key="index"
@@ -52,17 +47,21 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import "../../public/css/style";
+@import "../../public/css/includes/_flex";
+@import "../../public/css/includes/_colors";
 @import "../../public/css/includes/_font";
-.sort-list_wrap {
+
+.wrap {
+  display: flex;
   margin-left: 0.375rem;
+  align-items: center;
   position: relative;
 
-  .sort-param {
+  .sortParam {
     color: $grey;
   }
 
-  .arrow-down {
+  .arrowDown {
     width: 0.3125rem;
     height: 0.1875rem;
     padding-left: 0.5625rem;
@@ -72,7 +71,7 @@ export default {
     background: url("../assets/arrow.svg") no-repeat right;
   }
 
-  .sort-list {
+  .sortList {
     display: block;
     width: 10rem;
     height: 4.25rem;
@@ -83,7 +82,6 @@ export default {
     background: #ffffff;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
-    
 
     .inner {
       height: 100%;
@@ -92,20 +90,20 @@ export default {
 
     .item {
       font-size: $fz14px;
-      color: #959dad;
+      color: $grey-light;
       height: 1.625rem;
       justify-content: center;
       align-items: center;
     }
 
     .item:hover {
-      background: #f8f8f8;
-      color: #1f1f1f;
+      background: $grey-extra-light;
+      color: $black;
     }
   }
 }
 
-.sort-list_wrap:hover {
+.wrap:hover {
   cursor: url("../assets/cursor.svg"), pointer;
 }
 </style>

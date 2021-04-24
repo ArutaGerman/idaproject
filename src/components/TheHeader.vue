@@ -1,11 +1,14 @@
 <template>
-  <header class="header">
-    <div class="header-inner container">
+  <header :class="$style.header">
+    <div :class="[$style.inner, $style.container]">
       <HeaderLogo></HeaderLogo>
-      <div class="header-cart_wrap cart-icon_wrap">
+      <div :class="$style.headerCartWrap">
         <router-link to="/cart">
           <CartIcon></CartIcon>
-          <div v-if="countProducts > 0" class="header-cart__count dflex">
+          <div
+            v-if="countProducts > 0"
+            :class="[$style.headerCartCount, $style.dflex]"
+          >
             <span>{{ countProducts }}</span>
           </div>
         </router-link>
@@ -19,7 +22,7 @@ import { mapGetters } from "vuex";
 export default {
   components: {
     HeaderLogo: () => import("@/components/header/HeaderLogo"),
-    CartIcon: () => import("@/components/common/CartIcon")
+    CartIcon: () => import("@/components/common/CartIcon"),
   },
   // считываем кол-во товаров в корзине из localStorage при перезагрузке или закрытии окна
   mounted() {
@@ -27,18 +30,22 @@ export default {
   },
   //получение из store данных счетчика  кол-ва товаров в корзине
   computed: {
-    ...mapGetters(["countProducts"])
-  }
+    ...mapGetters(["countProducts"]),
+  },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
+@import "../../public/css/includes/_flex";
+@import "../../public/css/includes/_colors";
+
 .header {
   background: #ffffff;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
   border-radius: 0px 0px 8px 8px;
   height: 4.125rem;
-  &-inner {
+
+  .inner {
     height: 100%;
 
     padding: 0 5.5rem;
@@ -47,12 +54,12 @@ export default {
     align-items: center;
   }
 
-  .header-cart_wrap {
+  .headerCartWrap {
     position: relative;
   }
-  .header-cart__count {
-    height: 12px;
-    width: 12px;
+  .headerCartCount {
+    height: 0.75rem;
+    width: 0.75rem;
     position: absolute;
     top: 0;
     right: 0;
@@ -63,9 +70,9 @@ export default {
 
     span {
       font-weight: bold;
-      font-size: 8px;
-      line-height: 10px;
-      color: #ffffff;
+      font-size: 0.5rem;
+      line-height: 0.625rem;
+      color: $white;
     }
   }
 }

@@ -1,17 +1,21 @@
 <template>
-  <div :class="[$style['goods_wrap'], $style.dflex]">
-    <div v-for="(item, index) in sortedProducts" :key="index" :class="$style['goods-item']">
-      <div :class="[$style['goods-item_inner'], $style.dflex]">
-        <div :class="[$style['product-header'], $style['dflex_nowrap']]">
-          <div :class="$style['rating_wrap']">
-            <div :class="[$style['rating_inner'], $style['dflex_nowrap']]">
-              <i :class="$style['rating-star']"></i>
-              <div :class="[$style['rating-text'],$style.dflex]">
+  <div :class="[$style.goodsWrap, $style.dflex]">
+    <div
+      v-for="(item, index) in sortedProducts"
+      :key="index"
+      :class="$style.goodsItem"
+    >
+      <div :class="[$style.goodsItemInner, $style.dflex]">
+        <div :class="[$style.productHeader, $style.dflexNoWrap]">
+          <div :class="$style.ratingWrap">
+            <div :class="[$style.ratingInner, $style.dflexNoWrap]">
+              <i :class="$style.ratingStar"></i>
+              <div :class="[$style.ratingText, $style.dflex]">
                 <span>{{ item.rating }}</span>
               </div>
             </div>
           </div>
-          <a href="#" :class="$style['img_wrap']">
+          <a href="#" :class="$style.imgWrap">
             <img
               :src="$options.Url.url + item.photo"
               :class="$style.img"
@@ -19,8 +23,8 @@
               alt="Фото товара"
             />
           </a>
-          <div :class="$style['cart-icon_wrap']">
-            <div @click="addProduct(item)" :class="$style['cart-icon']">
+          <div :class="$style.cartIconWrap">
+            <div @click="addProduct(item)" :class="$style.cartIcon">
               <svg
                 v-if="!checkProductsInCart(item)"
                 width="16"
@@ -52,11 +56,11 @@
             </div>
           </div>
         </div>
-        <a href="#" :class="$style['bottom_wrap']">
-          <div :class="$style['goods-item__title']">
+        <a href="#" :class="$style.bottomWrap">
+          <div :class="$style.goodsItemTitle">
             <span :title="item.name">{{ item.name }}</span>
           </div>
-          <div :class="$style['goods-item__price']">
+          <div :class="$style.goodsItemPrice">
             <span>{{ item.price }}</span>
           </div>
         </a>
@@ -71,10 +75,10 @@ import { mapGetters } from "vuex";
 export default {
   Url,
   props: {
-    sortedProducts: Array
+    sortedProducts: Array,
   },
   components: {
-    CartIcon: () => import("@/components/common/CartIcon")
+    CartIcon: () => import("@/components/common/CartIcon"),
   },
   computed: mapGetters(["productsInCart"]),
   methods: {
@@ -84,37 +88,37 @@ export default {
       this.$forceUpdate();
     },
     checkProductsInCart(item) {
-      return this.productsInCart.find(itemInCart => item.id == itemInCart.id);
-    }
-  }
+      return this.productsInCart.find((itemInCart) => item.id == itemInCart.id);
+    },
+  },
 };
 </script>
 
 <style lang="scss" module>
-@import "../../public/css/style";
+@import "../../public/css/includes/_flex";
 @import "../../public/css/includes/_font";
 @import "../../public/css/includes/_colors";
 
-.goods_wrap {
+.goodsWrap {
   width: 100%;
   max-width: 69rem;
 
-  .goods-item:nth-child(1),
-  .goods-item:nth-child(4n + 5) {
+  .goodsItem:nth-child(1),
+  .goodsItem:nth-child(4n + 5) {
     margin-left: 0;
   }
 
-  .goods-item:nth-child(4n + 4) {
+  .goodsItem:nth-child(4n + 4) {
     margin-right: 0;
   }
 
-  .goods-item {
+  .goodsItem {
     width: 100%;
     max-width: 16.5rem;
     padding-bottom: 1rem;
     margin: 0 0.5rem;
 
-    .goods-item_inner {
+    .goodsItemInner {
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
@@ -124,31 +128,31 @@ export default {
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
       border-radius: 8px;
 
-      .product-header {
-        .rating_wrap {
+      .productHeader {
+        .ratingWrap {
           font-style: normal;
           font-weight: bold;
           font-size: 10px;
           line-height: 13px;
         }
 
-        .rating_inner {
+        .ratingInner {
           padding-right: 0.6875rem;
 
-          .rating-star {
+          .ratingStar {
             display: block;
             width: 20px;
             height: 20px;
             background: url("../assets/star.svg") no-repeat center;
           }
 
-          .rating-text {
+          .ratingText {
             color: $yellow;
             align-items: center;
           }
         }
 
-        .img_wrap {
+        .imgWrap {
           flex-grow: 1;
           display: block;
 
@@ -157,22 +161,22 @@ export default {
           }
         }
 
-        .cart-icon_wrap {
-          .cart-icon {
+        .cartIconWrap {
+          .cartIcon {
             margin-left: 0.6875rem;
           }
         }
       }
     }
 
-    .bottom_wrap {
+    .bottomWrap {
       display: block;
       width: 100%;
       text-align: left;
       font-size: $fz14px;
-      line-height: 18px;
+      line-height: $fz18px;
 
-      .goods-item__title {
+      .goodsItemTitle {
         font-weight: normal;
         color: $grey;
         white-space: nowrap;
@@ -180,7 +184,7 @@ export default {
         overflow: hidden;
       }
 
-      .goods-item__price {
+      .goodsItemPrice {
         font-weight: bold;
         color: $black;
         padding-top: 0.375rem;

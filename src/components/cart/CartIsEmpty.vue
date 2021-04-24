@@ -1,27 +1,44 @@
 <template>
-  <div class="cart-empty">
-    <span>
-      Пока что вы ничего не добавили
-      в корзину.
-    </span>
-    <BaseButton @has-click="goToPrevPage">
-      <slot>Перейти к выбору</slot>
-    </BaseButton>
+  <div :class="$style.emptyCart">
+    <div :class="$style.emptyText">
+      <span> Пока что вы ничего не добавили в корзину.</span>
+    </div>
+    <div :class="$style.backBtn">
+      <BaseButton @has-click="goToPrevPage">
+        <slot>Перейти к выбору</slot>
+      </BaseButton>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   components: {
-    BaseButton: () => import("@/components/buttons/BaseButton")
+    BaseButton: () => import("@/components/buttons/BaseButton"),
   },
   methods: {
     goToPrevPage() {
       this.$router.go(-1);
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style>
+<style lang="scss" module>
+.emptyCart {
+  text-align: left;
+
+  .emptyText {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+  }
+
+  .backBtn {
+    padding-top: 1.5rem;
+
+    button:hover {
+      cursor: pointer;
+    }
+  }
+}
 </style>

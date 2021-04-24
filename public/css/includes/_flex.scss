@@ -7,16 +7,8 @@
     flex-wrap: wrap; 
   }
   
-  .dflex_a-center{
-    display: flex;
-    align-items: center;
-  }
-  
-  .dflex_nowrap{
+  .dflexNoWrap{
     display: flex;
     flex-wrap: nowrap; 
   }
   
-  .dblock{
-    display: block;
-  }

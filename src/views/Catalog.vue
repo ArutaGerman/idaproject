@@ -1,14 +1,10 @@
 <template>
-  <main :class="$style['main-content']">
-    <div :class="$style['main-content_inner']">
-      <div
-        :class="[$style['dflex_a-center'], $style['main-content__header_wrap']]"
-      >
-        <div class="catalog-header__title">
-          <span :class="$style.title">Каталог</span>
-        </div>
-        <div :class="$style['dflex_a-center']">
-          <span :class="$style['sort-title']">Сортировать по: </span>
+  <main :class="$style.mainContent">
+    <div :class="$style.mainContentInner">
+      <div :class="$style.mainContentHeaderWrap">
+        <span :class="$style.title">Каталог</span>
+        <div :class="$style.sortBlockWrap">
+          <span :class="$style.sortTitle">Сортировать по: </span>
           <SortList @sort-param="sortProducts"></SortList>
         </div>
       </div>
@@ -105,35 +101,42 @@ export default {
 
 <style lang="scss" module>
 @import "../../public/css/includes/_flex";
-@import "../../public/css/includes/_line-height";
 @import "../../public/css/includes/_colors";
+@import "../../public/css/includes/_font";
 
-.main-content {
+.mainContent {
   position: relative;
   z-index: 1;
 
-  .main-content_inner {
+  .mainContentInner {
     padding: 2rem 5.5rem 4.125rem 5.5rem;
 
     .sort-arrow {
-      height: $height;
+      height: 100%;
     }
 
-    .main-content__header_wrap {
-      z-index: 101;
+    .mainContentHeaderWrap {
+      display: flex;
       padding-bottom: 2.125rem;
       justify-content: space-between;
+      align-items: center;
       position: relative;
+      z-index: 101;
+
+      .sortBlockWrap {
+        display: flex;
+        align-items: center;
+      }
     }
 
     .title {
       font-size: 2rem;
       font-weight: 700;
-      line-height: $line-height-41px;
-      height: $height;
+      line-height: $fz41px;
+      height: 100%;
     }
 
-    .sort-title {
+    .sortTitle {
       color: $black;
       margin-right: 0.375rem;
     }
