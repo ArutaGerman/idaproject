@@ -24,9 +24,14 @@
             />
           </a>
           <div :class="$style.cartIconWrap">
-            <div @click="addProduct(item)" :class="[$style.cartIcon, {[$style.cartIconProductInCart] : checkProductsInCart(item)}] ">
+            <div
+              @click="addProduct(item)"
+              :class="[
+                $style.cartIcon,
+                { [$style.cartIconProductInCart]: checkProductsInCart(item) },
+              ]"
+            >
               <svg
-                
                 width="16"
                 height="16"
                 viewBox="0 0 32 32"
@@ -52,7 +57,6 @@
                   fill="#959DAD"
                 />
               </svg>
-              
             </div>
           </div>
         </div>
@@ -160,14 +164,13 @@ export default {
         }
 
         .cartIconWrap {
-          
           .cartIcon {
-            margin-left: 0.6875rem;  
+            margin-left: 0.6875rem;
           }
 
-          .cartIconProductInCart{            
-             path{
-              fill: $black
+          .cartIconProductInCart {
+            path {
+              fill: $black;
             }
           }
         }
