@@ -24,9 +24,9 @@
             />
           </a>
           <div :class="$style.cartIconWrap">
-            <div @click="addProduct(item)" :class="$style.cartIcon">
+            <div @click="addProduct(item)" :class="[$style.cartIcon, {[$style.cartIconProductInCart] : checkProductsInCart(item)}] ">
               <svg
-                v-if="!checkProductsInCart(item)"
+                
                 width="16"
                 height="16"
                 viewBox="0 0 32 32"
@@ -52,7 +52,7 @@
                   fill="#959DAD"
                 />
               </svg>
-              <CartIcon v-else></CartIcon>
+              
             </div>
           </div>
         </div>
@@ -77,9 +77,7 @@ export default {
   props: {
     sortedProducts: Array,
   },
-  components: {
-    CartIcon: () => import("@/components/common/CartIcon"),
-  },
+
   computed: mapGetters(["productsInCart"]),
   methods: {
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions
@@ -162,8 +160,15 @@ export default {
         }
 
         .cartIconWrap {
+          
           .cartIcon {
-            margin-left: 0.6875rem;
+            margin-left: 0.6875rem;  
+          }
+
+          .cartIconProductInCart{            
+             path{
+              fill: $black
+            }
           }
         }
       }
