@@ -11,6 +11,7 @@ const routes = [
     path: '/',
     name: 'App',
     component: App,
+    redirect: { name: 'Goods' }  //редирект на первую категорию
   },
   {
     path: '/goods/Rukzaki',

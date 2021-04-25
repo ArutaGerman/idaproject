@@ -83,7 +83,7 @@ export default {
   },
 
   computed: mapGetters(["productsInCart"]),
-
+  
   methods: {
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions
     addProduct(item) {

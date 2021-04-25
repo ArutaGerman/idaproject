@@ -62,14 +62,10 @@ export default {
   mounted() {
     this.getCategories; //Запускаем получение категорий оп api
     this.getGoods; //Запускаем получение товаров по api
-    // Если адрес страницы содержит goods, то выполняем запрос на api
-    if (window.location.href.match(/goods/)) {
       // Если есть localStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из localStorage, иначе id = 1
       JSON.parse(localStorage.getItem("idCategory")) ? this.$store.commit("getIdCategories", JSON.parse(localStorage.getItem("idCategory"))) : this.$store.commit("getIdCategories", 1);
       fetchProducts(this.idCategories, this.goods);
-    } else {
-      fetchProducts(1, this.goods); // Если адрес не сожердит goods, то запрашиваем по-умолчанию категорию с id = 1
-    }
+
   },
 
   methods: {
