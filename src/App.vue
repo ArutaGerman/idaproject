@@ -34,16 +34,9 @@ export default {
   }
 }
 
-
-select:hover,
-option:hover,
 li > a:hover,
 button:hover,
 .btn > *:hover,
-.cart-icon_wrap:hover,
-.cart-icon_wrap > a:hover,
-.cart-product__delete:hover,
-.product-header__cart_inner:hover,
 svg:hover {
   cursor: url("./assets/cursor.svg"), pointer;
 }

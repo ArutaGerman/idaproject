@@ -8,25 +8,27 @@
           :key="index"
           :class="$style.productsItemWrap"
         >
-          <div :class="$style.productsItem">
+          <div :class="[$style.productsItem, $style.dflex]">
             <div :class="[$style.productsItemInner, $style.dflexNoWrap]">
-              <div :class="$style.productsImgWrap">
-                <img
-                  :src="$options.Url.url + item.photo"
-                  :class="$style.productsImg"
-                  alt="Изображение товара"
-                />
-              </div>
-              <div :class="[$style.productsInfo, $style.dflex]">
-                <div>{{ item.name }}</div>
-                <div :class="$style.productsPrice">
-                  {{ item.price }} &#x20bd;
+              <router-link to="#" :class="$style.dflexNoWrap">
+                <div :class="$style.productsImgWrap">
+                  <img
+                    :src="$options.Url.url + item.photo"
+                    :class="$style.productsImg"
+                    alt="Изображение товара"
+                  />
                 </div>
-                <div :class="[$style.dflex, $style.productsRatingWrap]">
-                  <i :class="$style.productsRatingStar"></i>
-                  <span>{{ item.rating }}</span>
+                <div :class="[$style.productsInfo, $style.dflex]">
+                  <div>{{ item.name }}</div>
+                  <div :class="$style.productsPrice">
+                    {{ item.price }} &#x20bd;
+                  </div>
+                  <div :class="[$style.dflex, $style.productsRatingWrap]">
+                    <i :class="$style.productsRatingStar"></i>
+                    <span>{{ item.rating }}</span>
+                  </div>
                 </div>
-              </div>
+              </router-link>
               <div :class="[$style.productsDeleteWrap, $style.dflex]">
                 <div
                   @click="deleteFromCart(item)"
@@ -174,6 +176,8 @@ export default {
       }
       //проверяем заполнены ли все инпуты формы и если успешно, то показываем компонент успешно оформленного заказа
       if (!this.name || !this.address || !phone || phone.length != 11) {
+        const container = document.querySelector(".cart-container");
+        container.scrollTop = container.scrollHeight;
         this.error = true;
       } else if (this.name && this.address && phone) {
         this.error = false;
@@ -210,61 +214,68 @@ export default {
         padding-top: 0.75rem;
 
         .productsItem {
-          width: 22.75rem;
-          height: 7.5rem;
+          min-height: 120px;
           box-shadow: 0rem 0.25rem 1rem rgba(0, 0, 0, 0.05);
           border-radius: 0.5rem;
         }
 
         .productsItemInner {
           width: 100%;
-          height: 100%;
-          padding: 0.9375rem 1.5625rem;
+          padding: 0.75rem 0 0.75rem 1.5625rem;
 
-          .productsImgWrap {
-            max-width: 8.125rem;
-            height: 100%;
-
-            .productsImg {
-              height: 100%;
-              width: auto;
-            }
-          }
-
-          .productsInfo {
-            font-size: $fz14px;
-            line-height: $fz18px;
-            color: $grey;
+          a {
             flex-grow: 1;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: flex-start;
 
-            .productsPrice {
-              font-size: $fz14px;
-              font-weight: bold;
-              line-height: $fz18px;
-              color: $black;
-            }
-
-            .productsRatingWrap {
+            .productsImgWrap {
+              max-width: 8.125rem;
+              height: auto;
               align-items: center;
 
-              .productsRatingStar {
-                width: 1.25rem;
-                height: 1.25rem;
-                background: url("../../assets/star.svg") no-repeat center;
+              .productsImg {
+                height: 100%;
+                max-height: 5.625rem;
+                width: auto;
+              }
+            }
+
+            .productsInfo {
+              font-size: $fz14px;
+              line-height: $fz18px;
+              color: $grey;
+              flex-grow: 1;
+              flex-direction: column;
+              justify-content: space-between;
+              align-items: flex-start;
+
+              .productsPrice {
+                padding-top: 0.375rem;
+                font-size: $fz14px;
+                font-weight: bold;
+                line-height: $fz18px;
+                color: $black;
               }
 
-              .productsRatingStar + span {
-                font-size: 0.625rem;
-                line-height: 0.8125rem;
+              .productsRatingWrap {
+                padding-top: 1rem;
+                align-items: center;
+
+                .productsRatingStar {
+                  width: 1.25rem;
+                  height: 1.25rem;
+                  background: url("../../assets/star.svg") no-repeat center;
+                }
+
+                .productsRatingStar + span {
+                  font-size: 0.625rem;
+                  line-height: 0.8125rem;
+                }
               }
             }
           }
         }
         .productsDeleteWrap {
           align-items: center;
+          padding: 0 1.375rem;
 
           .productsDelete {
             width: 2rem;

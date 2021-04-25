@@ -2,10 +2,16 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Goods from '@/components/Goods.vue'
 import Cart from '@/views/Cart'
+import App from '@/App'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    name: 'App',
+    component: App,
+  },
   {
     path: '/goods/Rukzaki',
     name: 'Goods',

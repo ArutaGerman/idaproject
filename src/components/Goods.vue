@@ -83,6 +83,7 @@ export default {
   },
 
   computed: mapGetters(["productsInCart"]),
+
   methods: {
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions
     addProduct(item) {
@@ -121,10 +122,6 @@ export default {
     margin: 0 0.5rem;
 
     .goodsItemInner {
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      height: 100%;
       padding: 1rem;
       background: $white;
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
