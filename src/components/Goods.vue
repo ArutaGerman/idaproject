@@ -24,15 +24,13 @@
             />
           </a>
           <div :class="$style.cartIconWrap">
-            <div
-              @click="addProduct(item)"
+            <CartIcon
+              @click-svg="addProduct(item)"
               :class="[
                 $style.cartIcon,
                 { [$style.cartIconProductInCart]: checkProductsInCart(item) },
               ]"
-            >
-              <CartIcon></CartIcon>
-            </div>
+            ></CartIcon>
           </div>
         </div>
         <a href="#" :class="$style.bottomWrap">

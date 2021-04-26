@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.cartIcon">
+  <div @click="emitClick" :class="$style.cartIcon">
     <svg
       width="32"
       height="32"
@@ -30,7 +30,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods:{
+    emitClick(){
+      this.$emit("click-svg")
+    }
+  }
+};
 </script>
 
 <style lang="scss" module>
@@ -39,7 +45,5 @@ export default {};
 .cartIcon {
   width: 2rem;
   height: 2rem;
-
-  
 }
 </style>
