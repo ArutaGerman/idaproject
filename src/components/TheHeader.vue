@@ -56,6 +56,10 @@ export default {
 
   .headerCartWrap {
     position: relative;
+
+    path {
+      fill: $black;
+    }
   }
   .headerCartCount {
     height: 0.75rem;
