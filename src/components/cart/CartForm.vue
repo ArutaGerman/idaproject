@@ -34,7 +34,7 @@
                   @click="deleteFromCart(item)"
                   :class="$style.productsDelete"
                 >
-                  <Basket></Basket>
+                  <BasketIcon></BasketIcon>
                 </div>
               </div>
             </div>
@@ -97,7 +97,7 @@ export default {
     };
   },
   components: {
-    Basket: () => import("@/components/common/Basket"),
+    BasketIcon: () => import("@/components/common/BasketIcon"),
     BaseButton: () => import("@/components/buttons/BaseButton"),
   },
 
