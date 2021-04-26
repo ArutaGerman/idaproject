@@ -11,7 +11,7 @@
 import { mapGetters } from "vuex";
 export default {
   components: {
-    BaseButton: () => import("@/components/buttons/BaseButton")
+    BaseButton: () => import("@/components/buttons/BaseButton"),
   },
   computed: mapGetters(["successCart"]),
   methods: {
@@ -19,8 +19,8 @@ export default {
       this.$store.dispatch("hideOrderSuccess");
       document.body.style.overflow = "auto";
       this.$router.go(-1);
-    }
-  }
+    },
+  },
 };
 </script>
 

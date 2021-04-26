@@ -40,9 +40,9 @@ export default {
   computed: {
     ...mapGetters(["idCategories"]),
 
-    // Отслеживаем изменения в параметре сортировки
+    // Отслеживаем изменения в параметре сортировки. По-умолчанию сортируется по популярности
     sortedProducts: function () {
-      const sort = param => {
+      const sort = (param) => {
         switch (param) {
           case "цене":
             this.goods.sort((prev, curr) => prev.price - curr.price);
@@ -62,11 +62,12 @@ export default {
   mounted() {
     this.getCategories; //Запускаем получение категорий оп api
     this.getGoods; //Запускаем получение товаров по api
-    
-      // Если есть localStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из localStorage, иначе id = 1
-      JSON.parse(localStorage.getItem("idCategory")) ? this.$store.commit("getIdCategories", JSON.parse(localStorage.getItem("idCategory"))) : this.$store.commit("getIdCategories", 1);
-      fetchProducts(this.idCategories, this.goods);
 
+    // Если есть localStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из localStorage, иначе id = 1
+    JSON.parse(localStorage.getItem("idCategory"))
+      ? this.$store.commit("getIdCategories", JSON.parse(localStorage.getItem("idCategory")))
+      : this.$store.commit("getIdCategories", 1);
+    fetchProducts(this.idCategories, this.goods);
   },
 
   methods: {
@@ -75,7 +76,7 @@ export default {
       fetchCategories(this.categories);
     },
 
-    // Получаем товары по выбранной категории из api и сортируем их
+    // Получаем товары по выбранной категории из api
     getGoods() {
       this.goods = [];
       fetchProducts(this.idCategories, this.goods);

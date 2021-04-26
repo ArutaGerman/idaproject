@@ -24,14 +24,14 @@ export default {
   data() {
     return {
       emptyVisible: true,
-      success: false
+      success: false,
     };
   },
   components: {
     CartHeader: () => import("@/components/cart/CartHeader"),
     CartIsEmpty: () => import("@/components/cart/CartIsEmpty"),
     CartForm: () => import("@/components/cart/CartForm"),
-    CartSuccess: () => import("@/components/cart/CartSuccess")
+    CartSuccess: () => import("@/components/cart/CartSuccess"),
   },
   //получаем добавленные товары из store vuex
   computed: mapGetters(["productsInCart", "successCart"]),
@@ -41,9 +41,9 @@ export default {
   methods: {
     deleteProduct(id) {
       let array = this.products;
-      this.products = array.filter(index => index.id !== id);
-    }
-  }
+      this.products = array.filter((index) => index.id !== id);
+    },
+  },
 };
 </script>
 

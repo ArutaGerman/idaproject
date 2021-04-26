@@ -55,7 +55,8 @@ export default {
   text-align: left;
   line-height: $fz21px;
 
-  li:nth-child(1), li:nth-child(2)  {
+  li:nth-child(1),
+  li:nth-child(2) {
     padding-bottom: 1rem;
   }
 

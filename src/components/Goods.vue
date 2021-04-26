@@ -1,6 +1,10 @@
 <template>
   <div :class="[$style.goodsWrap, $style.dflex]">
-    <div v-for="(item, index) in sortedProducts" :key="index" :class="$style.goodsItem">
+    <div
+      v-for="(item, index) in sortedProducts"
+      :key="index"
+      :class="$style.goodsItem"
+    >
       <div :class="[$style.goodsItemInner, $style.dflex]">
         <div :class="[$style.productHeader, $style.dflexNoWrap]">
           <div :class="$style.ratingWrap">
@@ -75,7 +79,7 @@ import { mapGetters } from "vuex";
 export default {
   Url,
   props: {
-    sortedProducts: Array
+    sortedProducts: Array,
   },
 
   computed: mapGetters(["productsInCart"]),
@@ -87,9 +91,9 @@ export default {
       this.$forceUpdate();
     },
     checkProductsInCart(item) {
-      return this.productsInCart.find(itemInCart => item.id == itemInCart.id);
-    }
-  }
+      return this.productsInCart.find((itemInCart) => item.id == itemInCart.id);
+    },
+  },
 };
 </script>
 
