@@ -62,6 +62,7 @@ export default {
   mounted() {
     this.getCategories; //Запускаем получение категорий оп api
     this.getGoods; //Запускаем получение товаров по api
+    
       // Если есть localStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из localStorage, иначе id = 1
       JSON.parse(localStorage.getItem("idCategory")) ? this.$store.commit("getIdCategories", JSON.parse(localStorage.getItem("idCategory"))) : this.$store.commit("getIdCategories", 1);
       fetchProducts(this.idCategories, this.goods);

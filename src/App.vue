@@ -2,7 +2,9 @@
   <div id="app">
     <Header></Header>
     <Catalog></Catalog>
-    <router-view />
+    <transition name="slide-fade">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -18,7 +20,7 @@ export default {
 
 <style lang="scss">
 @import "../public/css/style";
-#app { 
+#app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -40,9 +42,22 @@ button:hover,
 svg:hover {
   cursor: url("./assets/cursor.svg"), pointer;
 }
+
 svg:hover {
   > path {
     fill: $black;
   }
+}
+
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active до версии 2.1.8 */ {
+  transform: translateX(100%);
+  opacity: 0;
 }
 </style>

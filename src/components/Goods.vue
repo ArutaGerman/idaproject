@@ -1,10 +1,6 @@
 <template>
   <div :class="[$style.goodsWrap, $style.dflex]">
-    <div
-      v-for="(item, index) in sortedProducts"
-      :key="index"
-      :class="$style.goodsItem"
-    >
+    <div v-for="(item, index) in sortedProducts" :key="index" :class="$style.goodsItem">
       <div :class="[$style.goodsItemInner, $style.dflex]">
         <div :class="[$style.productHeader, $style.dflexNoWrap]">
           <div :class="$style.ratingWrap">
@@ -65,7 +61,7 @@
             <span :title="item.name">{{ item.name }}</span>
           </div>
           <div :class="$style.goodsItemPrice">
-            <span>{{ item.price }}</span>
+            <span>{{ item.priceToTemplate }}</span>
           </div>
         </a>
       </div>
@@ -79,11 +75,11 @@ import { mapGetters } from "vuex";
 export default {
   Url,
   props: {
-    sortedProducts: Array,
+    sortedProducts: Array
   },
 
   computed: mapGetters(["productsInCart"]),
-  
+
   methods: {
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions
     addProduct(item) {
@@ -91,9 +87,9 @@ export default {
       this.$forceUpdate();
     },
     checkProductsInCart(item) {
-      return this.productsInCart.find((itemInCart) => item.id == itemInCart.id);
-    },
-  },
+      return this.productsInCart.find(itemInCart => item.id == itemInCart.id);
+    }
+  }
 };
 </script>
 
