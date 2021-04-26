@@ -148,6 +148,7 @@ export default {
       if (!this.name || !this.address || !phone || phone.length != 11) {
         const container = document.querySelector(".cart-container");
         container.scrollTop = container.scrollHeight;
+        
         this.error = true;
       } else if (this.name && this.address && phone) {
         this.error = false;

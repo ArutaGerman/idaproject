@@ -1,5 +1,5 @@
 <template>
-  <div ref="cart" :class="[$style.blockWrapper, $style.dflex]" class="cart-container">
+  <div :class="[$style.blockWrapper, $style.dflex]" class="cart-container">
     <div :class="$style.blockInner">
       <div :class="$style.inner">
         <CartHeader></CartHeader>
