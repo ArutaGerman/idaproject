@@ -80,9 +80,8 @@
 
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { Url } from "../../additionals/variables";
-import { mapMutations } from "vuex";
 export default {
   Url,
   data() {
@@ -96,6 +95,7 @@ export default {
       btnText: "Назад",
     };
   },
+
   components: {
     BasketIcon: () => import("@/components/common/BasketIcon"),
     BaseButton: () => import("@/components/buttons/BaseButton"),
@@ -103,6 +103,7 @@ export default {
 
   computed: {
     ...mapGetters(["productsInCart", "successCart"]),
+
     // Вычисляем заполнены ли все поля и если да, то кнопка отправки формы меняет теряет класс errorForm
     checkInput: function () {
       const fn = () => {
@@ -122,13 +123,12 @@ export default {
   },
 
   methods: {
-    ...mapMutations(["deleteFromCart"]),
+    ...mapActions(["deleteFromCart", "CountProductsInCart", "showOrderSuccess"]),
 
     // Флаг для фокуса на поле телефона, если он не введен или введен не до конца
     onFocus() {
       this.focused = false;
     },
-
     // Метод проверки заполнена ли верно форма заказа
     validateForm() {
       let phone = this.phone;
@@ -147,13 +147,12 @@ export default {
       //проверяем заполнены ли все инпуты формы и если успешно, то показываем компонент успешно оформленного заказа
       if (!this.name || !this.address || !phone || phone.length != 11) {
         const container = document.querySelector(".cart-container");
-        container.scrollTop = container.scrollHeight;
-        
+        container.scrollTop = container.scrollHeight;        
         this.error = true;
       } else if (this.name && this.address && phone) {
         this.error = false;
-        this.$store.dispatch("CountProductsInCart");
-        this.$store.dispatch("showOrderSuccess");
+        this.CountProductsInCart();
+        this.showOrderSuccess();
       }
     },
 

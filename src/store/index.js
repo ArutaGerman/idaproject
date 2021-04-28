@@ -8,14 +8,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     // cart,
     state: {
-        cartProducts: [],                                                                       // Список товаров в корзине
-        cartCount: 0,                                                                           // Счетчик товаров в корзине
+        cartProducts: [],                                                                       // Список товаров в корзине                                                                       // Счетчик товаров в корзине
         success: false,                                                                         // Флаг успешно оформленного заказа
         idCategory: 1                                                                           // Id категории товаров из меню выбора категории товаров
     },
 
     actions: {        
         addToCart: (context, payload) => context.commit('addToCart', payload),                  // Action для мутации addToCart - Добавляем в корзину товар
+        deleteFromCart: (context, payload) => context.commit('deleteFromCart', payload),    
         showOrderSuccess: context => context.commit('showOrderSuccess'),                        // Action для мутации showOrderSuccess - меняем  success для отображения компонента CartSuccess, если заказ верно оформлен        
         hideOrderSuccess: context => context.commit('hideOrderSuccess'),                        // Action для мутации showOrderSuccess - меняем  success, чтобы не отобразило компонент CartSuccess при открытии корзины        
         CountProductsInCart: context => context.commit('CountProductsInCart'),                  // Action для мутации CountProductsInCart - меняем cartCount для подсчета кол-ва товаров в корзине        
@@ -32,7 +32,6 @@ export default new Vuex.Store({
         CountProductsInCart: state => {
             const storage = JSON.parse(localStorage.getItem("products"));
             state.cartProducts = storage || [];
-            if (!storage) state.cartCount = 0;
         },
         // Добавляем товары в корзину по клику на кнопку "добавить/купить" и обновляем счетчик
         addToCart: (state, payload) => {
@@ -49,8 +48,7 @@ export default new Vuex.Store({
         deleteFromCart: (state, payload) => {
             const newState = state.cartProducts.filter(index => index !== payload);             // Удаляем из списка корзины выбранный товар     
             localStorage.setItem("products", JSON.stringify(newState));                         // Обновляем список товаров в localStorage         
-            state.cartProducts = newState;                                                      // Обновляем список товаров в корзине      
-            if (JSON.parse(localStorage.getItem("products")).length == 0) state.cartCount = 0   // Обновляем счетчик кол-ва товаров       
+            state.cartProducts = newState;                                                      // Обновляем список товаров в корзине            
         },        
         // Меняем state succes, если данные заполнены в корзине верно
         showOrderSuccess: state => {
@@ -64,7 +62,7 @@ export default new Vuex.Store({
 
     getters: {        
         productsInCart: state => state.cartProducts,                                            // Список товаров в корзине                                                                            
-        countProducts: state => state.cartCount = state.cartProducts.length,                    // Счетчикт товаров в корзине        
+        countProducts: state => state.cartProducts.length,                    // Счетчикт товаров в корзине        
         successCart: state => state.success,                                                    // Состояние успешного оформления заказа        
         idCategories: state => state.idCategory,                                                // получаем id категории товаров
     },
