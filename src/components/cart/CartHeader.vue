@@ -8,17 +8,18 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     BaseButton: () => import("@/components/buttons/BaseButton"),
   },
   computed: mapGetters(["successCart"]),
   methods: {
-    closeCart() {
-      this.$store.dispatch("hideOrderSuccess");
+    ...mapActions(["hideOrderSuccess"]),
+    closeCart() {      
       document.body.style.overflow = "auto";
       this.$router.go(-1);
+      this.hideOrderSuccess();
     },
   },
 };

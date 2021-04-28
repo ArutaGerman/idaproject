@@ -17,7 +17,7 @@
 <script>
 import { Translit } from "@/additionals/translit";
 import "whatwg-fetch";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   mixins: [Translit],
   props: {
@@ -37,8 +37,9 @@ export default {
   },
 
   methods: {
+    ...mapActions(["getID"]),
     getCategoryId(id) {
-      this.$store.dispatch("getID", id);
+      this.getID(id);
       this.$emit("get-goods");
     },
   },

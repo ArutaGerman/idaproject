@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     HeaderLogo: () => import("@/components/header/HeaderLogo"),
@@ -26,11 +26,12 @@ export default {
   },
   // считываем кол-во товаров в корзине из localStorage при перезагрузке или закрытии окна
   mounted() {
-    this.$store.dispatch("CountProductsInCart");
+    this.CountProductsInCart;
   },
   //получение из store данных счетчика  кол-ва товаров в корзине
   computed: {
     ...mapGetters(["countProducts"]),
+    ...mapActions(["CountProductsInCart"])
   },
 };
 </script>

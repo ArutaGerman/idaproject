@@ -48,7 +48,7 @@
 
 <script>
 import { Url } from "../additionals/variables";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   Url,
   props: {
@@ -60,9 +60,10 @@ export default {
   computed: mapGetters(["productsInCart"]),
 
   methods: {
+    ...mapActions(["addToCart"]),
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions
     addProduct(item) {
-      this.$store.dispatch("addToCart", item);
+      this.addToCart(item);
     },
     checkProductsInCart(item) {
       return this.productsInCart.find((itemInCart) => item.id == itemInCart.id);
