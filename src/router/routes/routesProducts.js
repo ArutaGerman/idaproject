@@ -7,8 +7,8 @@ const routesProducts = [
     name: 'App',
     component: App,
     redirect: {
-      path: '/goods/1/Rukzaki'
-    } //редирект на первую категорию
+      path: '/goods/1/Rukzaki' //редирект на первую категорию
+    } 
   },
   {
     path: '/goods/:id/:name',
