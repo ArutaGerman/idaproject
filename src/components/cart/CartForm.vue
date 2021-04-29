@@ -4,7 +4,7 @@
     <form @submit.prevent="validateForm" id="cart_form" :class="$style.form">
       <div :class="$style.products">
         <div
-          v-for="(item, index) in productsInCart"
+          v-for="(item, index) in this['cart/productsInCart']"
           :key="index"
           :class="$style.productsItemWrap"
         >
@@ -31,7 +31,7 @@
               </router-link>
               <div :class="[$style.productsDeleteWrap, $style.dflex]">
                 <div
-                  @click="deleteFromCart(item)"
+                  @click="deleteProduct(item)"
                   :class="$style.productsDelete"
                 >
                   <BasketIcon></BasketIcon>
@@ -92,17 +92,16 @@ export default {
       address: null,
       isActive: false,
       error: false,
-      btnText: "Назад",
     };
   },
 
   components: {
-    BasketIcon: () => import("@/components/common/BasketIcon"),
-    BaseButton: () => import("@/components/buttons/BaseButton"),
+    BasketIcon: () => import("@/components/common/icons/BasketIcon"),
+    BaseButton: () => import("@/components/common/buttons/BaseButton"),
   },
 
   computed: {
-    ...mapGetters(["productsInCart", "successCart"]),
+    ...mapGetters(["cart/productsInCart"]),
 
     // Вычисляем заполнены ли все поля и если да, то кнопка отправки формы меняет теряет класс errorForm
     checkInput: function () {
@@ -123,12 +122,21 @@ export default {
   },
 
   methods: {
-    ...mapActions(["deleteFromCart", "CountProductsInCart", "showOrderSuccess"]),
+    ...mapActions(["cart/deleteFromCart", "cart/showOrderSuccess"]),
+
+    deleteProduct(item) {
+      this["cart/deleteFromCart"](item);
+      localStorage.setItem(
+        "products",
+        JSON.stringify(this["cart/productsInCart"])
+      ); // Обновляем localStorage
+    },
 
     // Флаг для фокуса на поле телефона, если он не введен или введен не до конца
     onFocus() {
       this.focused = false;
     },
+
     // Метод проверки заполнена ли верно форма заказа
     validateForm() {
       let phone = this.phone;
@@ -144,19 +152,17 @@ export default {
       } else {
         this.focused = true;
       }
+
       //проверяем заполнены ли все инпуты формы и если успешно, то показываем компонент успешно оформленного заказа
       if (!this.name || !this.address || !phone || phone.length != 11) {
         const container = document.querySelector(".cart-container");
-        container.scrollTop = container.scrollHeight;        
+        container.scrollTop = container.scrollHeight;
         this.error = true;
-      } else if (this.name && this.address && phone) {
+      } else if (this.name && this.address && phone.length == 11) {
         this.error = false;
-        this.CountProductsInCart();
-        this.showOrderSuccess();
+        this["cart/showOrderSuccess"]();
       }
     },
-
-    // closeCart
   },
 };
 </script>

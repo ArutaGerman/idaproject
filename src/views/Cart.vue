@@ -6,10 +6,17 @@
         <div :class="$style.content">
           <CartIsEmpty
             v-if="
-              (!productsInCart || productsInCart.length < 1) && !successCart
+              (!this['cart/productsInCart'] ||
+                this['cart/productsInCart'].length < 1) &&
+              !this['cart/successCart']
             "
           />
-          <CartForm v-else-if="productsInCart.length > 0 && !successCart" />
+          <CartForm
+            v-else-if="
+              this['cart/productsInCart'].length > 0 &&
+              !this['cart/successCart']
+            "
+          />
           <CartSuccess v-else></CartSuccess>
         </div>
       </div>
@@ -34,7 +41,11 @@ export default {
     CartSuccess: () => import("@/components/cart/CartSuccess"),
   },
   //получаем добавленные товары из store vuex
-  computed: mapGetters(["productsInCart", "successCart"]),
+  computed: mapGetters([
+    "cart/productsInCart",
+    "cart/successCart",
+    "cart/countProductsInCart",
+  ]),
   mounted() {
     document.body.style.overflow = "hidden";
   },

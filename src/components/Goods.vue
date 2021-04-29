@@ -55,18 +55,19 @@ export default {
     sortedProducts: Array,
   },
   components: {
-    CartIcon: () => import("@/components/common/CartIcon"),
+    CartIcon: () => import("@/components/common/icons/CartIcon"),
   },
-  computed: mapGetters(["productsInCart"]),
+  computed: mapGetters(["cart/productsInCart"]),
 
   methods: {
-    ...mapActions(["addToCart"]),
+    ...mapActions(["products/addToCart"]),
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions
     addProduct(item) {
-      this.addToCart(item);
+      this["products/addToCart"](item);
+      localStorage.setItem("products", JSON.stringify(this["cart/productsInCart"])); // Дополнительно: добавляем новые товары в localstorage
     },
     checkProductsInCart(item) {
-      return this.productsInCart.find((itemInCart) => item.id == itemInCart.id);
+      return this['cart/productsInCart'].find((itemInCart) => item.id == itemInCart.id);
     },
   },
 };

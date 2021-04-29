@@ -6,10 +6,10 @@
         <router-link to="/cart">
           <CartIcon></CartIcon>
           <div
-            v-if="countProducts > 0"
+            v-if="this['cart/countProducts'] > 0"
             :class="[$style.headerCartCount, $style.dflex]"
           >
-            <span>{{ countProducts }}</span>
+            <span>{{ this["cart/countProducts"] }}</span>
           </div>
         </router-link>
       </div>
@@ -22,16 +22,16 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     HeaderLogo: () => import("@/components/header/HeaderLogo"),
-    CartIcon: () => import("@/components/common/CartIcon"),
+    CartIcon: () => import("@/components/common/icons/CartIcon"),
   },
   // считываем кол-во товаров в корзине из localStorage при перезагрузке или закрытии окна
   mounted() {
-    this.CountProductsInCart;
+    this["cart/countProductsInCart"];   
   },
   //получение из store данных счетчика  кол-ва товаров в корзине
   computed: {
-    ...mapGetters(["countProducts"]),
-    ...mapActions(["CountProductsInCart"])
+    ...mapGetters(["cart/countProducts"]),
+    ...mapActions(["cart/countProductsInCart"]),
   },
 };
 </script>

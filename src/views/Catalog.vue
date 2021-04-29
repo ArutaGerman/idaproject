@@ -22,7 +22,7 @@
 
 <script>
 import "whatwg-fetch";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { fetchProducts, fetchCategories } from "../api/api";
 export default {
   data() {
@@ -38,7 +38,7 @@ export default {
     SortList: () => import("@/components/SortList"),
   },
   computed: {
-    ...mapGetters(["idCategories"]),
+    ...mapGetters(["products/idCategories"]),
 
     // Отслеживаем изменения в параметре сортировки. По-умолчанию сортируется по популярности
     sortedProducts: function () {
@@ -63,14 +63,15 @@ export default {
     this.getCategories; //Запускаем получение категорий оп api
     this.getGoods; //Запускаем получение товаров по api
 
-    // Если есть localStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из localStorage, иначе id = 1
-    JSON.parse(localStorage.getItem("idCategory"))
-      ? this.$store.commit("getIdCategories", JSON.parse(localStorage.getItem("idCategory")))
-      : this.$store.commit("getIdCategories", 1);
-    fetchProducts(this.idCategories, this.goods);
+    // Если есть sessionStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из sessionStorage, иначе id = 1
+    JSON.parse(sessionStorage.getItem("idCategory"))
+      ? this["products/getID"](JSON.parse(sessionStorage.getItem("idCategory")))
+      : this["products/getID"](1);
+    fetchProducts(this["products/idCategories"], this.goods);
   },
 
   methods: {
+    ...mapActions(["products/getID"]),
     // Получаем категории товаров из api
     getCategories() {
       fetchCategories(this.categories);
@@ -79,7 +80,7 @@ export default {
     // Получаем товары по выбранной категории из api
     getGoods() {
       this.goods = [];
-      fetchProducts(this.idCategories, this.goods);
+      fetchProducts(this["products/idCategories"], this.goods);
     },
 
     // Получаем параметр для сортировки из SortList.vue
