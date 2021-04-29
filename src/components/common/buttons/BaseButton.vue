@@ -1,5 +1,5 @@
 <template>
-  <button @click="emitValidateForm" class="btn">
+  <button type="submit" @click.prevent="emitValidateForm" class="btn">
     <slot></slot>
   </button>
 </template>
@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../../public/css/includes/_colors";
+@import "../../../../public/css/includes/_colors";
 
 .btn {
   width: 100%;

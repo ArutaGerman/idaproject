@@ -1,28 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Goods from '@/components/Goods.vue'
-import Cart from '@/views/Cart'
-import App from '@/App'
+import routesProducts from '@/router/routes/routesProducts'
+import routesCart from '@/router/routes/routesCart'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'App',
-    component: App,
-    redirect: { name: 'Goods' }  //редирект на первую категорию
-  },
-  {
-    path: '/goods/Rukzaki',
-    name: 'Goods',
-    component: Goods
-  },
-  {
-    path: '/cart',
-    name: 'Cart',
-    component: Cart
-  },
+  ...routesProducts,
+  ...routesCart
 ]
 
 const router = new VueRouter({

@@ -22,7 +22,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     HeaderLogo: () => import("@/components/header/HeaderLogo"),
-    CartIcon: () => import("@/components/common/CartIcon"),
+    CartIcon: () => import("@/components/common/icons/CartIcon"),
   },
   // считываем кол-во товаров в корзине из localStorage при перезагрузке или закрытии окна
   mounted() {

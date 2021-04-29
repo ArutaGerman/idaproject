@@ -31,7 +31,7 @@
               </router-link>
               <div :class="[$style.productsDeleteWrap, $style.dflex]">
                 <div
-                  @click="this['cart/deleteFromCart'](item)"
+                  @click="deleteProduct(item)"
                   :class="$style.productsDelete"
                 >
                   <BasketIcon></BasketIcon>
@@ -92,13 +92,12 @@ export default {
       address: null,
       isActive: false,
       error: false,
-      btnText: "Назад",
     };
   },
 
   components: {
-    BasketIcon: () => import("@/components/common/BasketIcon"),
-    BaseButton: () => import("@/components/buttons/BaseButton"),
+    BasketIcon: () => import("@/components/common/icons/BasketIcon"),
+    BaseButton: () => import("@/components/common/buttons/BaseButton"),
   },
 
   computed: {
@@ -123,16 +122,21 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      "cart/deleteFromCart",
-      "cart/CountProductsInCart",
-      "cart/showOrderSuccess",
-    ]),
+    ...mapActions(["cart/deleteFromCart", "cart/showOrderSuccess"]),
+
+    deleteProduct(item) {
+      this["cart/deleteFromCart"](item);
+      localStorage.setItem(
+        "products",
+        JSON.stringify(this["cart/productsInCart"])
+      ); // Обновляем localStorage
+    },
 
     // Флаг для фокуса на поле телефона, если он не введен или введен не до конца
     onFocus() {
       this.focused = false;
     },
+
     // Метод проверки заполнена ли верно форма заказа
     validateForm() {
       let phone = this.phone;
@@ -148,6 +152,7 @@ export default {
       } else {
         this.focused = true;
       }
+
       //проверяем заполнены ли все инпуты формы и если успешно, то показываем компонент успешно оформленного заказа
       if (!this.name || !this.address || !phone || phone.length != 11) {
         const container = document.querySelector(".cart-container");
@@ -155,12 +160,9 @@ export default {
         this.error = true;
       } else if (this.name && this.address && phone.length == 11) {
         this.error = false;
-        this["cart/CountProductsInCart"]();
         this["cart/showOrderSuccess"]();
       }
     },
-
-    // closeCart
   },
 };
 </script>

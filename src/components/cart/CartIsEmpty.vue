@@ -14,7 +14,7 @@
 <script>
 export default {
   components: {
-    BaseButton: () => import("@/components/buttons/BaseButton"),
+    BaseButton: () => import("@/components/common/buttons/BaseButton"),
   },
   methods: {
     goToPrevPage() {

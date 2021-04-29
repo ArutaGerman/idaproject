@@ -6,9 +6,13 @@
         :key="index"
         @click="getCategoryId(item.id)"
       >
-        <router-link :to="'/goods/' + rus_to_latin(item.name)">{{
-          item.name
-        }}</router-link>
+        <router-link
+          :to="{
+            name: 'Goods',
+            params: { id: item.id, name: rus_to_latin(item.name) },
+          }"
+          >{{ item.name }}</router-link
+        >
       </li>
     </ul>
   </nav>
@@ -24,23 +28,27 @@ export default {
     categories: Array,
   },
 
-  data() {
-    return {};
-  },
-
   computed: {
     ...mapGetters(["products/idCategories"]),
   },
 
   mounted() {
     this.$emit("get-categories");
+    this.saveCategoryId();
   },
 
   methods: {
     ...mapActions(["products/getID"]),
     getCategoryId(id) {
       this["products/getID"](id);
+      this.saveCategoryId();
       this.$emit("get-goods");
+    },
+    saveCategoryId() {
+      sessionStorage.setItem(
+        "idCategory",
+        JSON.stringify(this["products/idCategories"])
+      );
     },
   },
 };
@@ -59,6 +67,10 @@ export default {
   li:nth-child(1),
   li:nth-child(2) {
     padding-bottom: 1rem;
+  }
+
+  li {
+    display: inline-block;
   }
 
   a {

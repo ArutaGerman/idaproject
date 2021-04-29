@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import "../../../public/css/includes/_colors";
+@import "../../../../public/css/includes/_colors";
 
 .cartIcon {
   width: 2rem;

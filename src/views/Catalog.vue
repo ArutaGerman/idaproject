@@ -63,9 +63,9 @@ export default {
     this.getCategories; //Запускаем получение категорий оп api
     this.getGoods; //Запускаем получение товаров по api
 
-    // Если есть localStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из localStorage, иначе id = 1
-    JSON.parse(localStorage.getItem("idCategory"))
-      ? this["products/getID"](JSON.parse(localStorage.getItem("idCategory")))
+    // Если есть sessionStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из sessionStorage, иначе id = 1
+    JSON.parse(sessionStorage.getItem("idCategory"))
+      ? this["products/getID"](JSON.parse(sessionStorage.getItem("idCategory")))
       : this["products/getID"](1);
     fetchProducts(this["products/idCategories"], this.goods);
   },
