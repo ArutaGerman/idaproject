@@ -57,16 +57,16 @@ export default {
   components: {
     CartIcon: () => import("@/components/common/CartIcon"),
   },
-  computed: mapGetters(["productsInCart"]),
+  computed: mapGetters(["cart/productsInCart"]),
 
   methods: {
-    ...mapActions(["addToCart"]),
+    ...mapActions(["products/addToCart"]),
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions
     addProduct(item) {
-      this.addToCart(item);
+      this["products/addToCart"](item);
     },
     checkProductsInCart(item) {
-      return this.productsInCart.find((itemInCart) => item.id == itemInCart.id);
+      return this['cart/productsInCart'].find((itemInCart) => item.id == itemInCart.id);
     },
   },
 };

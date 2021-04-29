@@ -29,7 +29,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["idCategories"]),
+    ...mapGetters(["products/idCategories"]),
   },
 
   mounted() {
@@ -37,9 +37,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(["getID"]),
+    ...mapActions(["products/getID"]),
     getCategoryId(id) {
-      this.getID(id);
+      this["products/getID"](id);
       this.$emit("get-goods");
     },
   },
