@@ -1,5 +1,5 @@
 <template>
-  <div @click="emitClick" :class="$style.cartIcon">
+  <div @click="emitClick">
     <svg
       width="32"
       height="32"
@@ -40,10 +40,5 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import "../../../../public/css/includes/_colors";
 
-.cartIcon {
-  width: 2rem;
-  height: 2rem;
-}
 </style>

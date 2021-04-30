@@ -203,7 +203,7 @@ export default {
             flex-grow: 1;
 
             .productsImgWrap {
-              max-width: 8.125rem;
+              max-width: 4.375rem;
               height: auto;
               align-items: center;
 
@@ -217,6 +217,7 @@ export default {
             .productsInfo {
               font-size: $fz14px;
               line-height: $fz18px;
+              padding-left: 2.125rem;
               color: $grey;
               flex-grow: 1;
               flex-direction: column;

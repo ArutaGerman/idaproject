@@ -109,7 +109,7 @@ export default {
 
     .mainContentHeaderWrap {
       display: flex;
-      padding-bottom: 2.125rem;
+      padding-bottom: 1.5rem;
       justify-content: space-between;
       align-items: center;
       position: relative;
