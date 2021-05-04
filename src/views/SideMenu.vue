@@ -30,7 +30,7 @@ export default {
   //Обновляем id при изменении id категории
   watch: {
     $route(to) {
-      this.getCategoryId(to.params.id);
+      if (to.params.id) this.getCategoryId(to.params.id);
     },
   },
 
