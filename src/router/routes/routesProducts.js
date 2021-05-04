@@ -7,7 +7,6 @@ const routesProducts = [{
     component: App,
     redirect: {
       path: '/goods/1/Rukzaki' //редирект на первую категорию
-    }
   },
   {
     path: '/goods/:id/:name',
