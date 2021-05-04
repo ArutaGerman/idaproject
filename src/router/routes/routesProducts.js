@@ -15,7 +15,6 @@ const routesProducts = [{
     component: GoodsList,
     props: true,
   },
-
 ];
 
 export default routesProducts
