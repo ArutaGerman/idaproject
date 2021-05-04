@@ -13,7 +13,6 @@ export default {
   components: {
     BaseButton: () => import("@/components/common/buttons/BaseButton"),
   },
-  // computed: mapGetters(["cart/successCart"]),
   methods: {
     ...mapActions(["cart/hideOrderSuccess"]),
     closeCart() {      

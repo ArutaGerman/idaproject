@@ -62,7 +62,7 @@ export default {
   mounted() {
     this.getCategories; //Запускаем получение категорий оп api
     this.getGoods; //Запускаем получение товаров по api
-
+    
     // Если есть sessionStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из sessionStorage, иначе id = 1
     JSON.parse(sessionStorage.getItem("idCategory"))
       ? this["products/getID"](JSON.parse(sessionStorage.getItem("idCategory")))
