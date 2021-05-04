@@ -4,9 +4,9 @@
       <span> Пока что вы ничего не добавили в корзину.</span>
     </div>
     <div :class="$style.backBtn">
-      <BaseButton @has-click="goToPrevPage">
+      <base-button @has-click="goToPrevPage">
         <slot>Перейти к выбору</slot>
-      </BaseButton>
+      </base-button>
     </div>
   </div>
 </template>

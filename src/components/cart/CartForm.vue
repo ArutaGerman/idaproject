@@ -34,7 +34,7 @@
                   @click="deleteProduct(item)"
                   :class="$style.productsDelete"
                 >
-                  <BasketIcon></BasketIcon>
+                  <basket-icon></basket-icon>
                 </div>
               </div>
             </div>
@@ -64,12 +64,12 @@
             <input v-model="address" type="text" placeholder="Адрес" />
           </div>
         </div>
-        <BaseButton
+        <base-button
           @has-click="validateForm"
           :class="{ [$style.errorForm]: !isActive }"
         >
           <slot>Отправить</slot>
-        </BaseButton>
+        </base-button>
       </div>
     </form>
     <div v-if="error" :class="$style.dataNotValid">

@@ -2,7 +2,7 @@
   <div :class="[$style.headerWrap, $style.dflex]">
     <div :class="$style.headerInner">
       <div :class="$style.title">Корзина</div>
-      <BaseButton @has-click="closeCart" :class="$style.btn"></BaseButton>
+      <base-button @has-click="closeCart" :class="$style.btn"></base-button>
     </div>
   </div>
 </template>

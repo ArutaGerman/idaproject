@@ -13,7 +13,7 @@
 export default {
   components: {
     Header: () => import("@/components/TheHeader"),
-    Catalog: () => import("@/views/Catalog"),
+    Catalog: () => import("@/views/TheCatalog"),
   },
 };
 </script>

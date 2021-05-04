@@ -58,7 +58,6 @@ export default {
     CartIcon: () => import("@/components/common/icons/CartIcon"),
   },
   computed: mapGetters(["cart/productsInCart"]),
-
   methods: {
     ...mapActions(["products/addToCart"]),
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions
@@ -77,32 +76,26 @@ export default {
 @import "../../public/css/includes/_flex";
 @import "../../public/css/includes/_font";
 @import "../../public/css/includes/_colors";
-
 .goodsWrap {
   width: 100%;
   max-width: 69rem;
-
   .goodsItem:nth-child(1),
   .goodsItem:nth-child(4n + 5) {
     margin-left: 0;
   }
-
   .goodsItem:nth-child(4n + 4) {
     margin-right: 0;
   }
-
   .goodsItem {
     width: 100%;
     max-width: 16.5rem;
     padding-bottom: 1rem;
     margin: 0 0.5rem;
-
     .goodsItemInner {
       padding: 1rem;
       background: $white;
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
       border-radius: 8px;
-
       .productHeader {
         .ratingWrap {
           font-style: normal;
@@ -110,42 +103,34 @@ export default {
           font-size: 10px;
           line-height: 13px;
         }
-
         .ratingInner {
           padding-right: 0.6875rem;
-
           .ratingStar {
             display: block;
             width: 20px;
             height: 20px;
             background: url("../assets/star.svg") no-repeat center;
           }
-
           .ratingText {
             color: $yellow;
             align-items: center;
           }
         }
-
         .imgWrap {
           flex-grow: 1;
           display: block;
-
           .img {
             width: 100%;
           }
         }
-
         .cartIconWrap {
           .cartIcon {
             margin-left: 0.6875rem;
-
             svg {
               width: 1rem;
               height: 1rem;
             }
           }
-
           .cartIconProductInCart {
             path {
               fill: $black;
@@ -154,14 +139,12 @@ export default {
         }
       }
     }
-
     .bottomWrap {
       display: block;
       width: 100%;
       text-align: left;
       font-size: $fz14px;
       line-height: $fz18px;
-
       .goodsItemTitle {
         font-weight: normal;
         color: $grey;
@@ -169,7 +152,6 @@ export default {
         text-overflow: ellipsis;
         overflow: hidden;
       }
-
       .goodsItemPrice {
         font-weight: bold;
         color: $black;

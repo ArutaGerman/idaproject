@@ -1,10 +1,10 @@
 <template>
   <header :class="$style.header">
     <div :class="[$style.inner, $style.container]">
-      <HeaderLogo></HeaderLogo>
+      <header-logo></header-logo>
       <div :class="$style.headerCartWrap">
         <router-link to="/cart">
-          <CartIcon></CartIcon>
+          <cart-icon></cart-icon>
           <div
             v-if="this['cart/countProducts'] > 0"
             :class="[$style.headerCartCount, $style.dflex]"
