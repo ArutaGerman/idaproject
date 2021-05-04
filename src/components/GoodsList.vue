@@ -6,7 +6,7 @@
       :class="$style.goodsItem"
     >
       <div :class="[$style.goodsItemInner, $style.dflex]">
-        <div :class="[$style.itemHeader, $style.dflexNoWrap]">
+        <div :class="[$style.productHeader, $style.dflexNoWrap]">
           <div :class="$style.ratingWrap">
             <div :class="[$style.ratingInner, $style.dflexNoWrap]">
               <i :class="$style.ratingStar"></i>
@@ -23,7 +23,7 @@
               alt="Фото товара"
             />
           </a>
-          <div :class="[$style.cartIconWrap, $style.dflex]">
+          <div :class="$style.cartIconWrap">
             <CartIcon
               @click-svg="addProduct(item)"
               :class="[
@@ -58,21 +58,15 @@ export default {
     CartIcon: () => import("@/components/common/icons/CartIcon"),
   },
   computed: mapGetters(["cart/productsInCart"]),
-
   methods: {
     ...mapActions(["products/addToCart"]),
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions
     addProduct(item) {
       this["products/addToCart"](item);
-      localStorage.setItem(
-        "products",
-        JSON.stringify(this["cart/productsInCart"])
-      ); // Дополнительно: добавляем новые товары в localstorage
+      localStorage.setItem("products", JSON.stringify(this["cart/productsInCart"])); // Дополнительно: добавляем новые товары в localstorage
     },
     checkProductsInCart(item) {
-      return this["cart/productsInCart"].find(
-        (itemInCart) => item.id == itemInCart.id
-      );
+      return this['cart/productsInCart'].find((itemInCart) => item.id == itemInCart.id);
     },
   },
 };
@@ -82,109 +76,88 @@ export default {
 @import "../../public/css/includes/_flex";
 @import "../../public/css/includes/_font";
 @import "../../public/css/includes/_colors";
-
 .goodsWrap {
   width: 100%;
   max-width: 69rem;
-}
-
-.goodsItem:nth-child(1),
-.goodsItem:nth-child(4n + 5) {
-  margin-left: 0;
-}
-
-.goodsItem:nth-child(4n + 4) {
-  margin-right: 0;
-}
-
-.goodsItem {
-  width: 100%;
-  max-width: 16.5rem;
-  max-height: 17rem;
-  padding-bottom: 1rem;
-  margin: 0 0.5rem;
-}
-
-.goodsItemInner {
-  height: 100%;
-  padding: 1rem;
-  background: $white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
-
-  .itemHeader {
-    justify-content: space-between;
+  .goodsItem:nth-child(1),
+  .goodsItem:nth-child(4n + 5) {
+    margin-left: 0;
+  }
+  .goodsItem:nth-child(4n + 4) {
+    margin-right: 0;
+  }
+  .goodsItem {
     width: 100%;
-  }
-}
-
-.ratingWrap {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 10px;
-  line-height: 13px;
-}
-
-.ratingStar {
-  display: block;
-  width: 20px;
-  height: 20px;
-  background: url("../assets/star.svg") no-repeat center;
-}
-
-.ratingText {
-  color: $yellow;
-  align-items: center;
-}
-
-.imgWrap {
-  width: 100%;
-  height: 100%;
-  max-height: 11.25rem;
-
-  .img {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.cartIconWrap {
-  justify-content: flex-end;
-
-  svg {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .cartIconProductInCart {
-    path {
-      fill: $black;
+    max-width: 16.5rem;
+    padding-bottom: 1rem;
+    margin: 0 0.5rem;
+    .goodsItemInner {
+      padding: 1rem;
+      background: $white;
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      .productHeader {
+        .ratingWrap {
+          font-style: normal;
+          font-weight: bold;
+          font-size: 10px;
+          line-height: 13px;
+        }
+        .ratingInner {
+          padding-right: 0.6875rem;
+          .ratingStar {
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: url("../assets/star.svg") no-repeat center;
+          }
+          .ratingText {
+            color: $yellow;
+            align-items: center;
+          }
+        }
+        .imgWrap {
+          flex-grow: 1;
+          display: block;
+          .img {
+            width: 100%;
+          }
+        }
+        .cartIconWrap {
+          .cartIcon {
+            margin-left: 0.6875rem;
+            svg {
+              width: 1rem;
+              height: 1rem;
+            }
+          }
+          .cartIconProductInCart {
+            path {
+              fill: $black;
+            }
+          }
+        }
+      }
     }
-  }
-}
-
-.bottomWrap {
-  display: block;
-  width: 100%;
-  text-align: left;
-  font-size: $fz14px;
-  line-height: $fz18px;
-
-  .goodsItemTitle {
-    font-weight: normal;
-    color: $grey;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-
-  .goodsItemPrice {
-    font-weight: bold;
-    color: $black;
-    padding-top: 0.375rem;
+    .bottomWrap {
+      display: block;
+      width: 100%;
+      text-align: left;
+      font-size: $fz14px;
+      line-height: $fz18px;
+      .goodsItemTitle {
+        font-weight: normal;
+        color: $grey;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      .goodsItemPrice {
+        font-weight: bold;
+        color: $black;
+        padding-top: 0.375rem;
+      }
+    }
   }
 }
 </style>

@@ -2,22 +2,22 @@
   <div :class="[$style.blockWrapper, $style.dflex]" class="cart-container">
     <div :class="$style.blockInner">
       <div :class="$style.inner">
-        <CartHeader></CartHeader>
+        <cart-header></cart-header>
         <div :class="$style.content">
-          <CartIsEmpty
+          <cart-is-empty
             v-if="
               (!this['cart/productsInCart'] ||
                 this['cart/productsInCart'].length < 1) &&
               !this['cart/successCart']
             "
           />
-          <CartForm
+          <cart-form
             v-else-if="
               this['cart/productsInCart'].length > 0 &&
               !this['cart/successCart']
             "
           />
-          <CartSuccess v-else></CartSuccess>
+          <cart-success v-else></cart-success>
         </div>
       </div>
       <router-view />

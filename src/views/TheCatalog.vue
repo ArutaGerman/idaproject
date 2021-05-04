@@ -5,16 +5,16 @@
         <span :class="$style.title">Каталог</span>
         <div :class="$style.sortBlockWrap">
           <span :class="$style.sortTitle">Сортировать по: </span>
-          <SortList @sort-param="sortProducts"></SortList>
+          <sort-list @sort-param="sortProducts"></sort-list>
         </div>
       </div>
       <div :class="$style.dflex">
-        <SideMenu
+        <side-menu
           @get-categories="getCategories"
           @get-goods="getGoods"
           :categories="categories"
-        ></SideMenu>
-        <Goods :sortedProducts="sortedProducts" @get-goods="getGoods"></Goods>
+        ></side-menu>
+        <goods-list :sortedProducts="sortedProducts" @get-goods="getGoods"></goods-list>
       </div>
     </div>
   </main>
@@ -33,7 +33,7 @@ export default {
     };
   },
   components: {
-    Goods: () => import("@/components/Goods"),
+    GoodsList: () => import("@/components/GoodsList"),
     SideMenu: () => import("@/views/SideMenu"),
     SortList: () => import("@/components/SortList"),
   },
@@ -109,7 +109,7 @@ export default {
 
     .mainContentHeaderWrap {
       display: flex;
-      padding-bottom: 1.5rem;
+      padding-bottom: 2.125rem;
       justify-content: space-between;
       align-items: center;
       position: relative;

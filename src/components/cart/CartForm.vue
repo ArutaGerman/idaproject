@@ -34,7 +34,7 @@
                   @click="deleteProduct(item)"
                   :class="$style.productsDelete"
                 >
-                  <BasketIcon></BasketIcon>
+                  <basket-icon></basket-icon>
                 </div>
               </div>
             </div>
@@ -64,12 +64,12 @@
             <input v-model="address" type="text" placeholder="Адрес" />
           </div>
         </div>
-        <BaseButton
+        <base-button
           @has-click="validateForm"
           :class="{ [$style.errorForm]: !isActive }"
         >
           <slot>Отправить</slot>
-        </BaseButton>
+        </base-button>
       </div>
     </form>
     <div v-if="error" :class="$style.dataNotValid">
@@ -203,7 +203,7 @@ export default {
             flex-grow: 1;
 
             .productsImgWrap {
-              max-width: 4.375rem;
+              max-width: 8.125rem;
               height: auto;
               align-items: center;
 
@@ -217,7 +217,6 @@ export default {
             .productsInfo {
               font-size: $fz14px;
               line-height: $fz18px;
-              padding-left: 2.125rem;
               color: $grey;
               flex-grow: 1;
               flex-direction: column;

@@ -53,6 +53,7 @@ export default {
 
 .wrap {
   display: flex;
+  margin-left: 0.375rem;
   align-items: center;
   position: relative;
 
@@ -81,24 +82,24 @@ export default {
     background: #ffffff;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
-  }
 
-  .inner {
-    height: 100%;
-    padding: 0.5rem 0;
-  }
+    .inner {
+      height: 100%;
+      padding: 0.5rem 0;
+    }
 
-  .item {
-    font-size: $fz14px;
-    color: $grey-light;
-    height: 1.625rem;
-    padding-left: 0.75rem;
-    align-items: center;
-  }
+    .item {
+      font-size: $fz14px;
+      color: $grey-light;
+      height: 1.625rem;
+      justify-content: center;
+      align-items: center;
+    }
 
-  .item:hover {
-    background: $grey-extra-light;
-    color: $black;
+    .item:hover {
+      background: $grey-extra-light;
+      color: $black;
+    }
   }
 }
 

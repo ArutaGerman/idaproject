@@ -1,20 +1,15 @@
 <template>
   <nav id="nav" :class="$style.nav">
-    <ul>
-      <li
-        v-for="(item, index) in categories"
-        :key="index"
-        @click="getCategoryId(item.id)"
-      >
-        <router-link
-          :to="{
-            name: 'Goods',
-            params: { id: item.id, name: rus_to_latin(item.name) },
-          }"
-          >{{ item.name }}</router-link
-        >
-      </li>
-    </ul>
+    <router-link
+      v-for="(item, index) in categories"
+      :key="index"
+      :to="{
+        name: 'GoodsList',
+        params: { id: item.id, name: rus_to_latin(item.name) },
+      }"
+      :class="$style.link"
+      >{{ item.name }}</router-link
+    >
   </nav>
 </template>
 
@@ -26,6 +21,17 @@ export default {
   mixins: [Translit],
   props: {
     categories: Array,
+  },
+  data() {
+    return {
+      id: 1,
+    };
+  },
+  //Обновляем id при изменении id категории
+  watch: {
+    $route(to) {
+      this.getCategoryId(to.params.id);
+    },
   },
 
   computed: {
@@ -64,16 +70,13 @@ export default {
   text-align: left;
   line-height: $fz21px;
 
-  li:nth-child(1),
-  li:nth-child(2) {
+  .link:nth-child(1),
+  .link:nth-child(2) {
     padding-bottom: 1rem;
   }
 
-  li {
+  .link {
     display: inline-block;
-  }
-
-  a {
     color: $grey-light;
 
     &:hover {
