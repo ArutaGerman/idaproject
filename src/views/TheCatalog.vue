@@ -14,7 +14,18 @@
           @get-goods="getGoods"
           :categories="categories"
         ></side-menu>
-        <goods-list :sortedProducts="sortedProducts" @get-goods="getGoods"></goods-list>
+        <div :class="[$style.contentWrap, $style.dflex]">
+          <goods-list
+            :paginationGoods="paginationGoods"
+            @get-goods="getGoods"
+          ></goods-list>
+          <Pagination
+            :countPages="countPages"
+            :hasNextPage="hasNextPage"
+            @update-current-page="getCurrentPage"
+          >
+          </Pagination>
+        </div>
       </div>
     </div>
   </main>
@@ -24,19 +35,26 @@
 import "whatwg-fetch";
 import { mapGetters, mapActions } from "vuex";
 import { fetchProducts, fetchCategories } from "../api/api";
+
 export default {
   data() {
     return {
       categories: [],
       goods: [],
       sortParam: null,
+      currentPage: 1,
+      goodsPerPage: 12,
+      hasNextPage: true,
     };
   },
+
   components: {
     GoodsList: () => import("@/components/GoodsList"),
     SideMenu: () => import("@/views/SideMenu"),
     SortList: () => import("@/components/SortList"),
+    Pagination: () => import("@/components/common/BasePagination"),
   },
+
   computed: {
     ...mapGetters(["products/idCategories"]),
 
@@ -56,6 +74,18 @@ export default {
         }
       };
       return sort(this.sortParam);
+    },
+
+    // Расчет количества страниц товаров для пагинации
+    countPages: function () {
+      let quantity = null;
+      quantity = Math.ceil(this.sortedProducts.length / this.goodsPerPage);
+      return quantity;
+    },
+
+    // Раскидываем товары по страницам для пагинации
+    paginationGoods() {
+      return this.countPaginationGoods();
     },
   },
 
@@ -87,6 +117,19 @@ export default {
     sortProducts(param) {
       this.sortParam = param;
     },
+
+    // Отображаем this.goodsPerPage товаров и создаем пагинацию для переключения по страницам
+    countPaginationGoods() {
+      const start = (this.currentPage - 1) * this.goodsPerPage;
+      const end = this.currentPage * this.goodsPerPage;
+      this.hasNextPage = this.sortedProducts.length > end;
+      return this.sortedProducts.slice(start, end);
+    },
+
+    // Получаем текущую открытую страницу товаров из пагинации
+    getCurrentPage(i) {
+      this.currentPage = i;
+    },
   },
 };
 </script>
@@ -114,11 +157,11 @@ export default {
       align-items: center;
       position: relative;
       z-index: 101;
+    }
 
-      .sortBlockWrap {
-        display: flex;
-        align-items: center;
-      }
+    .sortBlockWrap {
+      display: flex;
+      align-items: center;
     }
 
     .title {
@@ -133,5 +176,9 @@ export default {
       margin-right: 0.375rem;
     }
   }
+}
+.contentWrap{
+  flex-direction: column;
+  align-items: center;
 }
 </style>
