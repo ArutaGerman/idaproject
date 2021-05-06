@@ -8,6 +8,7 @@
         params: { id: item.id, name: rus_to_latin(item.name) },
       }"
       :class="$style.link"
+      exact-path
       >{{ item.name }}</router-link
     >
   </nav>
@@ -22,15 +23,24 @@ export default {
   props: {
     categories: Array,
   },
+
   data() {
     return {
       id: 1,
     };
   },
-  //Обновляем id при изменении id категории
+
+  //Обновляем id в адресе при изменении id категории
   watch: {
-    $route(to) {
-      if (to.params.id) this.getCategoryId(to.params.id);
+    $route(to, from) {
+      if (to.params.id) this.getCategoryId(+to.params.id);
+      if (to.params.id != from.params.id && to.name == from.name) {
+        this.$route.query.page = 1;
+        sessionStorage.setItem(
+          "page-of-a-goods",
+          JSON.stringify(this.$route.query.page)
+        ); 
+      }
     },
   },
 
@@ -50,6 +60,7 @@ export default {
       this.saveCategoryId();
       this.$emit("get-goods");
     },
+    
     saveCategoryId() {
       sessionStorage.setItem(
         "idCategory",

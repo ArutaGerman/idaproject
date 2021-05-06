@@ -1,11 +1,11 @@
 <template>
   <div :class="[$style.goodsWrap, $style.dflex]">
     <div
-      v-for="(item, index) in sortedProducts"
+      v-for="(item, index) in paginationGoods"
       :key="index"
       :class="$style.goodsItem"
     >
-      <div :class="[$style.goodsItemInner, $style.dflex]">
+      <div :class="[$style.goodsItemInner, $style.dflexNoWrap]">
         <div :class="[$style.productHeader, $style.dflexNoWrap]">
           <div :class="$style.ratingWrap">
             <div :class="[$style.ratingInner, $style.dflexNoWrap]">
@@ -52,21 +52,33 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   Url,
   props: {
-    sortedProducts: Array,
+    paginationGoods: Array,
   },
+
   components: {
     CartIcon: () => import("@/components/common/icons/CartIcon"),
   },
-  computed: mapGetters(["cart/productsInCart"]),
+  
+  computed: {
+    ...mapGetters(["cart/productsInCart"]),
+  },
+
   methods: {
     ...mapActions(["products/addToCart"]),
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions
+
     addProduct(item) {
       this["products/addToCart"](item);
-      localStorage.setItem("products", JSON.stringify(this["cart/productsInCart"])); // Дополнительно: добавляем новые товары в localstorage
+      localStorage.setItem(
+        "products",
+        JSON.stringify(this["cart/productsInCart"])
+      ); // Дополнительно: добавляем новые товары в localstorage
     },
+
     checkProductsInCart(item) {
-      return this['cart/productsInCart'].find((itemInCart) => item.id == itemInCart.id);
+      return this["cart/productsInCart"].find(
+        (itemInCart) => item.id == itemInCart.id
+      );
     },
   },
 };
@@ -76,27 +88,38 @@ export default {
 @import "../../public/css/includes/_flex";
 @import "../../public/css/includes/_font";
 @import "../../public/css/includes/_colors";
+
 .goodsWrap {
   width: 100%;
   max-width: 69rem;
+
   .goodsItem:nth-child(1),
   .goodsItem:nth-child(4n + 5) {
     margin-left: 0;
   }
+
   .goodsItem:nth-child(4n + 4) {
     margin-right: 0;
   }
+
   .goodsItem {
     width: 100%;
     max-width: 16.5rem;
     padding-bottom: 1rem;
     margin: 0 0.5rem;
+
     .goodsItemInner {
+      height: 100%;
       padding: 1rem;
       background: $white;
       box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
       border-radius: 8px;
+          flex-direction: column;
+    justify-content: space-between;
+
+
       .productHeader {
+          height: 100%;
         .ratingWrap {
           font-style: normal;
           font-weight: bold;
@@ -116,6 +139,7 @@ export default {
             align-items: center;
           }
         }
+
         .imgWrap {
           flex-grow: 1;
           display: block;
@@ -123,6 +147,7 @@ export default {
             width: 100%;
           }
         }
+
         .cartIconWrap {
           .cartIcon {
             margin-left: 0.6875rem;
@@ -131,6 +156,7 @@ export default {
               height: 1rem;
             }
           }
+
           .cartIconProductInCart {
             path {
               fill: $black;
@@ -139,12 +165,14 @@ export default {
         }
       }
     }
+
     .bottomWrap {
       display: block;
       width: 100%;
       text-align: left;
       font-size: $fz14px;
       line-height: $fz18px;
+
       .goodsItemTitle {
         font-weight: normal;
         color: $grey;
@@ -152,6 +180,7 @@ export default {
         text-overflow: ellipsis;
         overflow: hidden;
       }
+      
       .goodsItemPrice {
         font-weight: bold;
         color: $black;

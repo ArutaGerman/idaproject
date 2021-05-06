@@ -1,6 +1,13 @@
 <template>
   <div class="logo_wrap">
-    <a href="/" :class="$style.logo">TestList</a>
+    <router-link
+      :to="{
+        name: 'App',
+      }"
+      :class="$style.logo"
+    >
+      TestList
+    </router-link>
   </div>
 </template>
 
