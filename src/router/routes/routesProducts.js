@@ -1,12 +1,14 @@
 import GoodsList from '@/components/GoodsList.vue'
 import App from '@/App'
 
-const routesProducts = [{
+const routesProducts = [
+  {
     path: '/',
     name: 'App',
     component: App,
     redirect: {
       path: '/goods/1/Rukzaki' //редирект на первую категорию
+    }
   },
   {
     path: '/goods/:id/:name',
