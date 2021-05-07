@@ -8,7 +8,7 @@
           <sort-list @sort-param="sortProducts"></sort-list>
         </div>
       </div>
-      <div :class="$style.dflex">
+      <div :class="$style.dflexNoWrap">
         <side-menu
           @get-categories="getCategories"
           @get-goods="getGoods"
@@ -22,6 +22,7 @@
           <Pagination
             :countPages="countPages"
             :hasNextPage="hasNextPage"
+            :currentPage="currentPage"
             @update-current-page="getCurrentPage"
           >
           </Pagination>
@@ -178,7 +179,10 @@ export default {
   }
 }
 .contentWrap{
+  min-height: 74vh;
+    width: 100%;
   flex-direction: column;
+  justify-content: space-between;    
   align-items: center;
 }
 </style>

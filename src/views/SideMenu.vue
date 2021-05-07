@@ -34,12 +34,9 @@ export default {
   watch: {
     $route(to, from) {
       if (to.params.id) this.getCategoryId(+to.params.id);
-      if (to.params.id != from.params.id) {
+      if (to.params.id && from.params.id && to.params.id != from.params.id) {
         this.$route.query.page = 1;
-        sessionStorage.setItem(
-          "page-of-a-goods",
-          JSON.stringify(this.$route.query.page)
-        ); 
+        sessionStorage.setItem("page-of-a-goods", JSON.stringify(this.$route.query.page)); 
       }
     },
   },

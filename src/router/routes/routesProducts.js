@@ -15,7 +15,7 @@ const routesProducts = [
     name: 'GoodsList',
     component: GoodsList,
     props: true,
-  },
+  }
 ];
 
 export default routesProducts

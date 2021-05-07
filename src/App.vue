@@ -2,7 +2,7 @@
   <div id="app">
     <Header></Header>
     <Catalog></Catalog>
-    <transition name="slide-fade">
+    <transition name="bounce">
       <router-view />
     </transition>
   </div>
@@ -49,15 +49,19 @@ svg:hover {
   }
 }
 
-.slide-fade-enter-active {
-  transition: all 0.5s ease;
+// Стили анимации для корзины
+.bounce-enter-active {
+  animation: bounce-in .3s;
 }
-.slide-fade-leave-active {
-  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+.bounce-leave-active {
+  animation: bounce-in .3s reverse;
 }
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active до версии 2.1.8 */ {
-  transform: translateX(100%);
-  opacity: 0;
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>

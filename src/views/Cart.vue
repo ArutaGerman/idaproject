@@ -20,7 +20,7 @@
           <cart-success v-else></cart-success>
         </div>
       </div>
-      <router-view />
+      
     </div>
   </div>
 </template>
@@ -88,7 +88,7 @@ export default {
   background: $white;
   position: relative;
   box-shadow: -4px 0px 16px rgba(0, 0, 0, 0.05);
-  border-radius: 8px 0px 0px 8px;
+  border-radius: 8px 0px 0px 8px;  
 }
 
 .inner {

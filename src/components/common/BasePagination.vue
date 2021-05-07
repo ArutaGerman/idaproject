@@ -20,7 +20,9 @@
         </div>
       </div>
     </div>
-    <div v-for="i in countPages" :key="i" :class="$style.navBtnWrap">
+    
+    <div v-for="i in countPages" :key="i" >
+      <div :class="$style.navBtnWrap">
       <div :class="$style.navBtnInner">
         <div :class="$style.navBtnInnerBorder">
           <router-link
@@ -33,6 +35,7 @@
           >
             {{ i }}
           </router-link>
+        </div>
         </div>
       </div>
     </div>
@@ -59,6 +62,7 @@
 export default {
   props: {
     countPages: Number,
+    currentPage: Number,
     hasNextPage: Boolean,
   },
 
@@ -67,10 +71,7 @@ export default {
       const currentPage = JSON.parse(sessionStorage.getItem("page-of-a-goods"));
       if (this.$route.query.page) {
         this.$emit("update-current-page", +this.$route.query.page);
-        sessionStorage.setItem(
-          "page-of-a-goods",
-          JSON.stringify(this.$route.query.page)
-        );
+        sessionStorage.setItem("page-of-a-goods", JSON.stringify(this.$route.query.page));
       } else {
         this.$route.query.page = currentPage;
         return;
@@ -80,14 +81,8 @@ export default {
 
   methods: {
     updatePlusPage() {
-      const currentPage = +JSON.parse(
-        sessionStorage.getItem("page-of-a-goods")
-      );
-      if (!this.$route.query.page) {
-        this.$route.query.page = 1;
-      } else {
-        this.$route.query.page = currentPage;
-      }
+      const currentPage = +JSON.parse(sessionStorage.getItem("page-of-a-goods"));
+      this.$route.query.page = currentPage ?? 1;
       return this.$route.query.page + 1;
     },
   },
@@ -101,8 +96,7 @@ export default {
 @import "../../../public/css/includes/_flex";
 
 .wrapper {
-  width: 100%;
-  max-width: 40rem;
+  max-width: 42rem;
   height: 100%;
   max-height: 3rem;
   padding-top: 2rem;
