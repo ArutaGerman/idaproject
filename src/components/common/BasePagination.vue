@@ -6,53 +6,49 @@
   >
     <div v-if="this.$route.query.page > 1" :class="$style.navBtnWrap">
       <div :class="$style.navBtnInner">
-        <div :class="$style.navBtnInnerBorder">
-          <router-link
-            :to="{
-              name: 'GoodsList',
-              params: { id: $route.params.id, name: $route.params.name },
-              query: { page: this.$route.query.page - 1 },
-            }"
-            :class="$style.navBtn"
-          >
-            &#60;
-          </router-link>
-        </div>
+        <router-link
+          :to="{
+            name: 'GoodsList',
+            params: { id: $route.params.id, name: $route.params.name },
+            query: { page: this.$route.query.page - 1 },
+          }"
+          :class="$style.navBtnInnerBorder"
+        >
+          <div :class="$style.navBtn">&#60;</div>
+        </router-link>
       </div>
     </div>
-    
-    <div v-for="i in countPages" :key="i" >
+
+    <div v-for="i in countPages" :key="i">
       <div :class="$style.navBtnWrap">
-      <div :class="$style.navBtnInner">
-        <div :class="$style.navBtnInnerBorder">
+        <div :class="$style.navBtnInner">
           <router-link
             :to="{
               name: 'GoodsList',
               params: { id: $route.params.id, name: $route.params.name },
               query: { page: i },
             }"
-            :class="$style.navBtn"
+            :class="$style.navBtnInnerBorder"
           >
-            {{ i }}
+            <div :class="$style.navBtn">
+              {{ i }}
+            </div>
           </router-link>
-        </div>
         </div>
       </div>
     </div>
     <div v-if="this.hasNextPage" :class="$style.navBtnWrap">
       <div :class="$style.navBtnInner">
-        <div :class="$style.navBtnInnerBorder">
-          <router-link
-            :to="{
-              name: 'GoodsList',
-              params: { id: $route.params.id, name: $route.params.name },
-              query: { page: updatePlusPage() },
-            }"
-            :class="$style.navBtn"
-          >
-            &#62;
-          </router-link>
-        </div>
+        <router-link
+          :to="{
+            name: 'GoodsList',
+            params: { id: $route.params.id, name: $route.params.name },
+            query: { page: updatePlusPage() },
+          }"
+          :class="$style.navBtnInnerBorder"
+        >
+          <div :class="$style.navBtn">&#62;</div>
+        </router-link>
       </div>
     </div>
   </nav>
@@ -71,7 +67,10 @@ export default {
       const currentPage = JSON.parse(sessionStorage.getItem("page-of-a-goods"));
       if (this.$route.query.page) {
         this.$emit("update-current-page", +this.$route.query.page);
-        sessionStorage.setItem("page-of-a-goods", JSON.stringify(this.$route.query.page));
+        sessionStorage.setItem(
+          "page-of-a-goods",
+          JSON.stringify(this.$route.query.page)
+        );
       } else {
         this.$route.query.page = currentPage;
         return;
@@ -81,7 +80,9 @@ export default {
 
   methods: {
     updatePlusPage() {
-      const currentPage = +JSON.parse(sessionStorage.getItem("page-of-a-goods"));
+      const currentPage = +JSON.parse(
+        sessionStorage.getItem("page-of-a-goods")
+      );
       this.$route.query.page = currentPage ?? 1;
       return this.$route.query.page + 1;
     },

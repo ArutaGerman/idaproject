@@ -11,23 +11,18 @@ export const fetchProducts = (id, array) =>
             // Преобразуем цену из числа формата 999999 в строку с разделителем '99 999', '999 999' 
             // и создаем новый ключ priceToTemplate в массиве для вывода в шаблон.
             // Старый ключ price используется для сортировки на странице при выборе соответствующего параметра пользователем
-            for (let i of array) {
-
-                const priceToTemplate = item => {
-
-                    if (item.price < 100000) {
-                        let a = item.price.toString().slice(0, 2);
-                        let b = item.price.toString().slice(2);
-                        item.priceToTemplate = a + " " + b;
-                    } else if (item.price > 100000){
-                        let a = item.price.toString().slice(0, 3);
-                        let b = item.price.toString().slice(3);
-                        item.priceToTemplate = a + " " + b;
-                    }                    
-                }
-                
-                priceToTemplate(i);
+            const createPriceToTemplate = item => {
+                if (item.price < 100000) {
+                    let a = item.price.toString().slice(0, 2);
+                    let b = item.price.toString().slice(2);
+                    item.priceToTemplate = a + " " + b;
+                } else if (item.price > 100000){
+                    let a = item.price.toString().slice(0, 3);
+                    let b = item.price.toString().slice(3);
+                    item.priceToTemplate = a + " " + b;
+                }                    
             }
+            return array.map(item => createPriceToTemplate(item))
         });
 
 // отправляем запрос на API для получения списка категорий товаров
