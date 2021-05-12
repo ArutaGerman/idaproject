@@ -1,5 +1,5 @@
 <template>
-  <div :class="[$style.blockWrapper, $style.dflex]" class="cart-container">
+  <div :class="[$style.blockWrapper, $style.dflex]" >
     <div :class="$style.blockInner">
       <div :class="$style.inner">
         <cart-header></cart-header>
@@ -92,7 +92,7 @@ export default {
 }
 
 .inner {
-  padding: 0 3rem 3.25rem 3rem;
+  padding: 0 3rem;
 
   .content {
     padding-top: 2rem;

@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.listWrap">
+  <div ref="cartContainer" :class="$style.listWrap">
     <span :class="$style.listTitle"> Товары в корзине </span>
     <form @submit.prevent="validateForm" id="cart_form" :class="$style.form">
       <div :class="$style.products">
@@ -155,9 +155,10 @@ export default {
 
       //проверяем заполнены ли все инпуты формы и если успешно, то показываем компонент успешно оформленного заказа
       if (!this.name || !this.address || !phone || phone.length != 11) {
-        const container = document.querySelector(".cart-container");
-        container.scrollTop = container.scrollHeight;
+        const container = this.$refs.cartContainer;
         this.error = true;
+        setTimeout( () => container.scrollIntoView(false), 100)
+               
       } else if (this.name && this.address && phone.length == 11) {
         this.error = false;
         this["cart/showOrderSuccess"]();
@@ -174,6 +175,7 @@ export default {
 
 .listWrap {
   text-align: left;
+  padding-bottom: 3.25rem;
 
   .listTitle {
     font-size: $fz18px;
