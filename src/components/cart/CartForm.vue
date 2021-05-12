@@ -156,9 +156,8 @@ export default {
       //проверяем заполнены ли все инпуты формы и если успешно, то показываем компонент успешно оформленного заказа
       if (!this.name || !this.address || !phone || phone.length != 11) {
         const container = this.$refs.cartContainer;
-        this.error = true;
-        setTimeout( () => container.scrollIntoView(false), 100)
-               
+          this.error = true;
+          this.$nextTick( () => container.scrollIntoView(false) )   
       } else if (this.name && this.address && phone.length == 11) {
         this.error = false;
         this["cart/showOrderSuccess"]();
