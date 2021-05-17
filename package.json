@@ -13,6 +13,7 @@
     "normalize.css": "^8.0.1",
     "promise-polyfill": "8.2.0",
     "vue": "^2.6.11",
+    "vue-click-outside": "^1.1.0",
     "vue-imask": "^6.0.7",
     "vue-router": "^3.2.0",
     "vue-text-mask": "^6.1.2",

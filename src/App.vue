@@ -9,7 +9,6 @@
 </template>
 
 <script>
-// import { bus } from "@/main.js";
 export default {
   components: {
     Header: () => import("@/components/TheHeader"),

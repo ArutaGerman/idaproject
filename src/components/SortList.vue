@@ -1,15 +1,20 @@
 <template>
-  <ul @click="showSortList" :class="[$style.wrap]">
+  <ul
+    v-click-outside="hideSortList"
+    @click.stop="showSortList"
+    ref="sortList"
+    :class="[$style.wrap]"
+  >
     <li :class="$style.sortParam">
-      {{ sorted }}
+      {{ sortedSelectParam }}
     </li>
     <div :class="$style.arrowDown"></div>
-    <li :class="[{ [$style.sortList]: sortMenu }, $style.dnone]">
+    <li v-if="sortMenuVisible" :class="$style.sortList">
       <ul :class="$style.inner">
         <li
           v-for="(item, index) in sortOptions"
           :key="index"
-          @click="sortProducts(index, sorted)"
+          @click="sortProducts(index, sortedSelectParam)"
           :class="[$style.item, $style.dflex]"
         >
           {{ item.name }}
@@ -21,26 +26,26 @@
 
 <script>
 export default {
-  data() {
-    return {
-      sorted: "популярности",
-      sortOptions: [
-        { name: "По цене", value: "цене" },
-        { name: "По популярности", value: "популярности" },
-      ],
-      sortMenu: false,
-    };
+  props: {
+    sortedSelectParam: String,
+    sortOptions: Array,
+    sortMenuVisible: Boolean,
   },
+
   methods: {
-    // Показываем/скрываем опции фильтра сотрировки
+    // Показываем/скрываем опции фильтра сортировки
     showSortList() {
-      this.sortMenu = !this.sortMenu;
+      this.$emit("show-sort");
     },
 
-    sortProducts(index, param) {
-      this.sorted = this.sortOptions[index].value;
-      param = this.sorted;
-      this.$emit("sort-param", param);
+    // Скрываем опции фильтра сортировки
+    hideSortList() {
+      this.$emit("hide-sort");
+    },
+
+    // Передаем параметр сортировки товаров
+    sortProducts(index) {
+      this.$emit("sort-param", this.sortOptions[index].value);
     },
   },
 };

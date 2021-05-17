@@ -57,6 +57,7 @@ export default {
       this.saveCategoryId();
       this.$emit("get-goods");
     },
+    
     saveCategoryId() {
       sessionStorage.setItem(
         "idCategory",

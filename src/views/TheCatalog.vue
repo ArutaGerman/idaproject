@@ -5,14 +5,21 @@
         <span :class="$style.title">Каталог</span>
         <div :class="$style.sortBlockWrap">
           <span :class="$style.sortTitle">Сортировать по: </span>
-          <sort-list @sort-param="sortProducts"></sort-list>
+          <sort-list
+            :sortMenuVisible="sortMenuVisible"
+            :sortedSelectParam="sortedSelectParam"
+            :sortOptions="sortOptions"
+            @sort-param="sortProducts"
+            @show-sort="showSortList"
+            @hide-sort="hideSortList"
+          ></sort-list>
         </div>
       </div>
       <div :class="$style.dflexNoWrap">
         <side-menu
+          :categories="categories"
           @get-categories="getCategories"
           @get-goods="getGoods"
-          :categories="categories"
         ></side-menu>
         <div :class="[$style.contentWrap, $style.dflex]">
           <goods-list
@@ -40,9 +47,17 @@ import { fetchProducts, fetchCategories } from "../api/api";
 export default {
   data() {
     return {
+      // SortList data
+      sortedSelectParam: "популярности",
+      sortOptions: [
+        { name: "По цене", value: "цене" },
+        { name: "По популярности", value: "популярности" },
+      ],
+      sortMenuVisible: false,
+      // Goods data
       categories: [],
       goods: [],
-      sortParam: null,
+      // Pagination data
       currentPage: 1,
       goodsPerPage: 12,
       hasNextPage: true,
@@ -60,7 +75,7 @@ export default {
     ...mapGetters(["products/idCategories"]),
 
     // Отслеживаем изменения в параметре сортировки. По-умолчанию сортируется по популярности
-    sortedProducts: function () {
+    sortedProducts() {
       const sort = (param) => {
         switch (param) {
           case "цене":
@@ -74,11 +89,11 @@ export default {
             return this.goods;
         }
       };
-      return sort(this.sortParam);
+      return sort(this.sortedSelectParam);
     },
 
     // Расчет количества страниц товаров для пагинации
-    countPages: function () {
+    countPages() {
       let quantity = null;
       quantity = Math.ceil(this.sortedProducts.length / this.goodsPerPage);
       return quantity;
@@ -91,6 +106,7 @@ export default {
   },
 
   mounted() {
+    this.popupItem = this.$el;
     this.getCategories; //Запускаем получение категорий оп api
     this.getGoods; //Запускаем получение товаров по api
 
@@ -103,6 +119,7 @@ export default {
 
   methods: {
     ...mapActions(["products/getID"]),
+
     // Получаем категории товаров из api
     getCategories() {
       fetchCategories(this.categories);
@@ -116,7 +133,17 @@ export default {
 
     // Получаем параметр для сортировки из SortList.vue
     sortProducts(param) {
-      this.sortParam = param;
+      this.sortedSelectParam = param;
+    },
+
+    // Показываем/скрываем опции фильтра сортировки
+    showSortList() {
+      this.sortMenuVisible = !this.sortMenuVisible;
+    },
+
+    // Скрываем опции фильтра сортировки по клику вне списка сортировки
+    hideSortList() {
+      this.sortMenuVisible = false;
     },
 
     // Отображаем this.goodsPerPage товаров и создаем пагинацию для переключения по страницам
@@ -178,11 +205,11 @@ export default {
     }
   }
 }
-.contentWrap{
+.contentWrap {
   min-height: 74vh;
-    width: 100%;
+  width: 100%;
   flex-direction: column;
-  justify-content: space-between;    
+  justify-content: space-between;
   align-items: center;
 }
 </style>

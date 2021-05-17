@@ -6,6 +6,7 @@
   >
     <div v-if="this.$route.query.page > 1" :class="$style.navBtnWrap">
       <div :class="$style.navBtnInner">
+          <div :class="$style.navBtn">
         <router-link
           :to="{
             name: 'GoodsList',
@@ -14,31 +15,32 @@
           }"
           :class="$style.navBtnInnerBorder"
         >
-          <div :class="$style.navBtn">&#60;</div>
+        &#60;
         </router-link>
+        </div>
       </div>
     </div>
-
     <div v-for="i in countPages" :key="i">
       <div :class="$style.navBtnWrap">
         <div :class="$style.navBtnInner">
-          <router-link
-            :to="{
-              name: 'GoodsList',
-              params: { id: $route.params.id, name: $route.params.name },
-              query: { page: i },
-            }"
-            :class="$style.navBtnInnerBorder"
-          >
-            <div :class="$style.navBtn">
+          <div :class="$style.navBtn">
+            <router-link
+              :to="{
+                name: 'GoodsList',
+                params: { id: $route.params.id, name: $route.params.name },
+                query: { page: i },
+              }"
+              :class="$style.navBtnInnerBorder"
+            >
               {{ i }}
-            </div>
-          </router-link>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
     <div v-if="this.hasNextPage" :class="$style.navBtnWrap">
       <div :class="$style.navBtnInner">
+        <div :class="$style.navBtn">
         <router-link
           :to="{
             name: 'GoodsList',
@@ -47,8 +49,9 @@
           }"
           :class="$style.navBtnInnerBorder"
         >
-          <div :class="$style.navBtn">&#62;</div>
+          &#62;
         </router-link>
+        </div>
       </div>
     </div>
   </nav>
@@ -119,16 +122,23 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
   border: 1px solid $shadow;
   border-radius: 8px;
   box-shadow: 0px 4px 16px $shadow;
+  color: $grey-light;
 }
 
 .navBtn {
   width: 100%;
+  height: 100%;
   display: block;
-  padding: 0.25rem;
-  color: $grey-light;
+
+  &:hover > a{
+    color: $black
+  }
 }
+
+
 </style>
