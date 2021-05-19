@@ -21,7 +21,7 @@
                 <div :class="[$style.productsInfo, $style.dflex]">
                   <div>{{ item.name }}</div>
                   <div :class="$style.productsPrice">
-                    {{ item.priceToTemplate }} &#x20bd;
+                    {{ Intl.NumberFormat("ru").format(item.price) }} &#x20bd;
                   </div>
                   <div :class="[$style.dflex, $style.productsRatingWrap]">
                     <i :class="$style.productsRatingStar"></i>

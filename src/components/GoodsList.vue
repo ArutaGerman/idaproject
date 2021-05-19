@@ -38,7 +38,7 @@
             <span :title="item.name">{{ item.name }}</span>
           </div>
           <div :class="$style.goodsItemPrice">
-            <span>{{ item.priceToTemplate }}</span>
+            <span>{{ Intl.NumberFormat("ru").format(item.price) }}</span>
           </div>
         </a>
       </div>
