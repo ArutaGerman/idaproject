@@ -59,20 +59,18 @@ export default {
     CartIcon: () => import("@/components/common/icons/CartIcon"),
   },
   
-  computed: {
-    ...mapGetters(["cart/productsInCart"]),
-  },
+  computed: mapGetters(["cart/productsInCart"]),
 
   methods: {
     ...mapActions(["products/addToCart"]),
-    //добавляем (делаем мутацию) товар в store vuex в корзине через actions
 
+    //добавляем (делаем мутацию) товар в store vuex в корзине через actions
     addProduct(item) {
       this["products/addToCart"](item);
       localStorage.setItem(
         "products",
         JSON.stringify(this["cart/productsInCart"])
-      ); // Дополнительно: добавляем новые товары в localstorage
+      ); 
     },
 
     checkProductsInCart(item) {

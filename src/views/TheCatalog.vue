@@ -106,15 +106,13 @@ export default {
   },
 
   mounted() {
-    this.popupItem = this.$el;
-    this.getCategories; //Запускаем получение категорий оп api
-    this.getGoods; //Запускаем получение товаров по api
-
-    // Если есть sessionStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из sessionStorage, иначе id = 1
+     // Если есть sessionStorage, для отправки запроса в api, id запрашиваемой категории товаров берется из sessionStorage, иначе id = 1
     JSON.parse(sessionStorage.getItem("idCategory"))
       ? this["products/getID"](JSON.parse(sessionStorage.getItem("idCategory")))
       : this["products/getID"](1);
-    fetchProducts(this["products/idCategories"], this.goods);
+    
+    this.getCategories; //Запускаем получение категорий оп api
+    this.getGoods(); //Запускаем получение товаров по api
   },
 
   methods: {
@@ -122,13 +120,13 @@ export default {
 
     // Получаем категории товаров из api
     getCategories() {
-      fetchCategories(this.categories);
+      fetchCategories().then(answer => this.categories.push(...answer))
     },
 
     // Получаем товары по выбранной категории из api
     getGoods() {
-      this.goods = [];
-      fetchProducts(this["products/idCategories"], this.goods);
+      this.goods = [];      
+      fetchProducts(this["products/idCategories"]).then(answer => this.goods.push(...answer))
     },
 
     // Получаем параметр для сортировки из SortList.vue

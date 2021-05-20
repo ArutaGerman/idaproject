@@ -34,6 +34,7 @@ Vue.directive('phone', {
   },
 })
 
+// Директива для закрытия блока при клике за его пределами
 Vue.directive('click-outside', {
   bind(el, binding) {
     el.addEventListener('click', e => e.stopPropagation());

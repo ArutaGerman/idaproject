@@ -1,5 +1,11 @@
 # idaproject
-
+Выполнено без применения фреймворков или сеток на верстку (без адаптива под мобильные)
+Ипользуется:
+- Vuex 
+- Vue-router
+- Eslint
+- Sass
+- Полифил для IE - "whatwg-fetch"
 ## Project setup
 ```
 npm install

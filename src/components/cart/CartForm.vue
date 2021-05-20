@@ -49,7 +49,7 @@
             {{ checkInput }}
           </div>
           <div v-if="focused" :class="$style.formDataToSend">
-            <input @focus="onFocus" type="text" placeholder="+7(___)-__-__" />
+            <input @focus="onFocus" type="text" placeholder="+7 (xxx) xxx - xx - xx" />
           </div>
           <div v-else :class="$style.formDataToSend">
             <input
