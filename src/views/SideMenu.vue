@@ -5,7 +5,7 @@
       :key="index"
       :to="{
         name: 'GoodsList',
-        params: { id: item.id, name: rus_to_latin(item.name) },
+        params: { id: item.id},
       }"
       :class="$style.link"
       exact-path
@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import { Translit } from "@/additionals/translit";
+// import { Translit } from "@/additionals/translit";
 import "whatwg-fetch";
 import { mapGetters, mapActions } from "vuex";
 export default {
-  mixins: [Translit],
+  // mixins: [Translit],
   props: {
     categories: Array,
   },
@@ -35,8 +35,7 @@ export default {
     $route(to, from) {
       if (to.params.id) this.getCategoryId(+to.params.id);
       if (to.params.id && from.params.id && to.params.id != from.params.id) {
-        this.$route.query.page = 1;
-        sessionStorage.setItem("page-of-a-goods", JSON.stringify(this.$route.query.page)); 
+        this.$route.query.page = 1
       }
     },
   },
@@ -47,22 +46,13 @@ export default {
 
   mounted() {
     this.$emit("get-categories");
-    this.saveCategoryId();
   },
 
   methods: {
     ...mapActions(["products/getID"]),
     getCategoryId(id) {
       this["products/getID"](id);
-      this.saveCategoryId();
       this.$emit("get-goods");
-    },
-    
-    saveCategoryId() {
-      sessionStorage.setItem(
-        "idCategory",
-        JSON.stringify(this["products/idCategories"])
-      );
     },
   },
 };

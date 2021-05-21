@@ -6,17 +6,17 @@
   >
     <div v-if="this.$route.query.page > 1" :class="$style.navBtnWrap">
       <div :class="$style.navBtnInner">
-          <div :class="$style.navBtn">
-        <router-link
-          :to="{
-            name: 'GoodsList',
-            params: { id: $route.params.id, name: $route.params.name },
-            query: { page: this.$route.query.page - 1 },
-          }"
-          :class="$style.navBtnInnerBorder"
-        >
-        &#60;
-        </router-link>
+        <div :class="$style.navBtn">
+          <router-link
+            :to="{
+              name: 'GoodsList',
+              params: { id: $route.params.id, name: $route.params.name },
+              query: { page: this.$route.query.page - 1 },
+            }"
+            :class="$style.navBtnInnerBorder"
+          >
+            &#60;
+          </router-link>
         </div>
       </div>
     </div>
@@ -41,16 +41,16 @@
     <div v-if="this.hasNextPage" :class="$style.navBtnWrap">
       <div :class="$style.navBtnInner">
         <div :class="$style.navBtn">
-        <router-link
-          :to="{
-            name: 'GoodsList',
-            params: { id: $route.params.id, name: $route.params.name },
-            query: { page: updatePlusPage() },
-          }"
-          :class="$style.navBtnInnerBorder"
-        >
-          &#62;
-        </router-link>
+          <router-link
+            :to="{
+              name: 'GoodsList',
+              params: { id: $route.params.id, name: $route.params.name },
+              query: { page: showNextPage() },
+            }"
+            :class="$style.navBtnInnerBorder"
+          >
+            &#62;
+          </router-link>
         </div>
       </div>
     </div>
@@ -67,27 +67,20 @@ export default {
 
   watch: {
     $route() {
-      const currentPage = JSON.parse(sessionStorage.getItem("page-of-a-goods"));
       if (this.$route.query.page) {
         this.$emit("update-current-page", +this.$route.query.page);
-        sessionStorage.setItem(
-          "page-of-a-goods",
-          JSON.stringify(this.$route.query.page)
-        );
-      } else {
-        this.$route.query.page = currentPage;
-        return;
       }
     },
   },
 
   methods: {
-    updatePlusPage() {
-      const currentPage = +JSON.parse(
-        sessionStorage.getItem("page-of-a-goods")
-      );
-      this.$route.query.page = currentPage ?? 1;
-      return this.$route.query.page + 1;
+    showNextPage() {
+      if (!this.$route.query.page) {
+        this.$route.query.page = 1;
+        return this.$route.query.page + 1;
+      } else {
+        return this.$route.query.page + 1;
+      }
     },
   },
 };
@@ -135,10 +128,8 @@ export default {
   height: 100%;
   display: block;
 
-  &:hover > a{
-    color: $black
+  &:hover > a {
+    color: $black;
   }
 }
-
-
 </style>

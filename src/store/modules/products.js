@@ -1,6 +1,6 @@
 
     const state = () => ({
-        idCategory: 1, // Id категории товаров из меню выбора категории товаров
+        idCategory: null, // Id категории товаров из меню выбора категории товаров
         sortMenu: false
     });
 
@@ -18,7 +18,7 @@
     const mutations = {
         // Получаем id категории товаров при выборе категории в меню
         GET_ID_CATEGORIES: (state, id) => {                    
-            JSON.parse(sessionStorage.getItem("idCategory")) ? state.idCategory = id : state.idCategory = 1;
+            state.idCategory = id
         },
         DROP_DOWN: state => state.sortMenu = !state.sortMenu
              
