@@ -18,6 +18,7 @@
 // import { Translit } from "@/additionals/translit";
 import "whatwg-fetch";
 import { mapGetters, mapActions } from "vuex";
+
 export default {
   // mixins: [Translit],
   props: {

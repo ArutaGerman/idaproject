@@ -115,15 +115,14 @@ export default {
       this.currentPage = 1;
     }
 
-    await this.getCategories; //Запускаем получение категорий оп api
-    console.log(this.categories.length);
-    if (this.$route.params.id){
-      this["products/getID"](this.$route.params.id)
+    //Запускаем получение категорий оп api
+    if (this.$route.params.id) {
+      this["products/getID"](this.$route.params.id);
     } else {
-      this["products/getID"]
+      this["products/getID"];
     }
-    
-    
+    await this.getCategories; 
+
     this.getGoods(); //Запускаем получение товаров по api
   },
 
@@ -137,10 +136,11 @@ export default {
 
     // Получаем товары по выбранной категории из api
     getGoods() {
+      const ID = this["products/idCategories"];
       this.goods = [];
-      fetchProducts(this["products/idCategories"]).then((answer) =>
-        this.goods.push(...answer)
-      );
+      if (ID) {
+        fetchProducts(ID).then((answer) => this.goods.push(...answer));
+      }
     },
 
     // Получаем параметр для сортировки из SortList.vue
@@ -160,10 +160,10 @@ export default {
 
     // Отображаем this.goodsPerPage товаров и создаем пагинацию для переключения по страницам
     countPaginationGoods() {
-      const start = (this.currentPage - 1) * this.goodsPerPage;
-      const end = this.currentPage * this.goodsPerPage;
-      this.hasNextPage = this.sortedProducts.length > end;
-      return this.sortedProducts.slice(start, end);
+      const START = (this.currentPage - 1) * this.goodsPerPage;
+      const END = this.currentPage * this.goodsPerPage;
+      this.hasNextPage = this.sortedProducts.length > END;
+      return this.sortedProducts.slice(START, END);
     },
 
     // Получаем текущую открытую страницу товаров из пагинации

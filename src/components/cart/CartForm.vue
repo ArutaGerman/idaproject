@@ -82,6 +82,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { Url } from "../../additionals/variables";
+
 export default {
   Url,
   data() {
@@ -103,7 +104,7 @@ export default {
   computed: {
     ...mapGetters(["cart/productsInCart"]),
 
-    // Вычисляем заполнены ли все поля и если да, то кнопка отправки формы меняет теряет класс errorForm
+    // Вычисляем заполнены ли все поля и если да, то кнопка отправки формы теряет класс errorForm
     checkInput: function () {
       const fn = () => {
         if (
@@ -126,13 +127,10 @@ export default {
 
     deleteProduct(item) {
       this["cart/deleteFromCart"](item);
-      localStorage.setItem(
-        "products",
-        JSON.stringify(this["cart/productsInCart"])
-      ); // Обновляем localStorage
+      localStorage.setItem("products", JSON.stringify(this["cart/productsInCart"]));    // Обновляем localStorage
     },
 
-    // Флаг для фокуса на поле телефона, если он не введен или введен не до конца
+    // Снятие флага фокуса на поле телефона, если он вводится или введен полностью
     onFocus() {
       this.focused = false;
     },
@@ -140,28 +138,27 @@ export default {
     // Метод проверки заполнена ли верно форма заказа
     validateForm() {
       let phone = this.phone;
-      // Проверяем верно ли заполнено поле телефона
-      // если phone имеет хоть один символ, то включаем маску, чтобы нельзя было ввести буквы
-      if (phone) {
-        phone = this.phone.replace(/\D/g, "").substring(0, 11); // Создаём переменную phone, которая преобразовывается в телефон без знаков для передачи на сервер
-        // если телефон не полностью заполнен, то показываем ошибку и пример формата телефона
-        if (phone.length != 11) {
-          this.focused = true;
+      const checkPhone = () => {
+        if (phone) {
+          phone = this.phone.replace(/\D/g, "").substring(0, 11);                         // Создаём переменную phone, которая содержит только цифры, для передачи на сервер
+          if (phone.length != 11) this.focused = true;                                    // если телефон не полностью заполнен, то показываем ошибку и пример формата телефона (маску)
+        } else {
+          this.focused = true;                                                            // если телефон вообще не заполнялся, то показываем ошибку и пример формата телефона (маску)
         }
-        // если телефон вообще не заполнялся, то показываем ошибку и пример формата телефона
-      } else {
-        this.focused = true;
       }
-
-      //проверяем заполнены ли все инпуты формы и если успешно, то показываем компонент успешно оформленного заказа
-      if (!this.name || !this.address || !phone || phone.length != 11) {
-        const container = this.$refs.cartContainer;
+      //проверяем заполнены ли все инпуты формы и если не успешно, то показываем ошибку, если упешно - показываем компонент успешно оформленного заказа
+      const checkTheFormInputs = () => {        
+        if (!this.name || !this.address || !phone || phone.length != 11) {
+          const ORDER_FORM = this.$refs.cartContainer;
           this.error = true;
-          this.$nextTick( () => container.scrollIntoView(false) )   
-      } else if (this.name && this.address && phone.length == 11) {
-        this.error = false;
-        this["cart/showOrderSuccess"]();
+          this.$nextTick( () => ORDER_FORM.scrollIntoView(false) )   
+        } else if (this.name && this.address && phone.length == 11) {
+          this.error = false;
+          this["cart/showOrderSuccess"]();
+        }
       }
+      checkPhone()
+      checkTheFormInputs()
     },
   },
 };

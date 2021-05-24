@@ -2,7 +2,9 @@
   <div class="logo_wrap">
     <router-link
       :to="{
-        name: 'App'
+        name: 'GoodsList',
+        params: { id: 1 },
+        query: { page: 1 },
       }"
       :class="$style.logo"
     >

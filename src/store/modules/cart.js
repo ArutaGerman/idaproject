@@ -5,7 +5,7 @@ const state = () => ({
 
 const getters = {
     productsInCart: state => state.cartProducts, // Список товаров в корзине                                                                            
-    countProducts: state => state.cartProducts.length, // Счетчикт товаров в корзине        
+    goodsCounter: state => state.cartProducts.length, // Счетчикт товаров в корзине        
     successCart: state => state.success, // Состояние успешного оформления заказа        
 };
 
@@ -13,7 +13,7 @@ const actions = {
     deleteFromCart: (context, item) => context.commit('DELETE_FROM_CART', item),
     showOrderSuccess: context => context.commit('SHOW_ORDER_SUCCESS'), // Action для мутации showOrderSuccess - меняем  success для отображения компонента CartSuccess, если заказ верно оформлен        
     hideOrderSuccess: context => context.commit('HIDE_ORDER_SUCCESS'), // Action для мутации showOrderSuccess - меняем  success, чтобы не отобразило компонент CartSuccess при открытии корзины        
-    countProductsInCart: context => context.commit('LIST_OF_PRODUCTS_IN_CART'), // Action для мутации CountProductsInCart - меняем cartCount для подсчета кол-ва товаров в корзине        
+    countProductsInCart: context => context.commit('LIST_OF_PRODUCTS_IN_CART'), // Action для мутации goodsCounter - меняем cartCount для подсчета кол-ва товаров в корзине        
 };
 
 const mutations = {

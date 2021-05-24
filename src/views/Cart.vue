@@ -19,14 +19,14 @@
           />
           <cart-success v-else></cart-success>
         </div>
-      </div>
-      
+      </div>      
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
@@ -34,21 +34,25 @@ export default {
       success: false,
     };
   },
+
   components: {
     CartHeader: () => import("@/components/cart/CartHeader"),
     CartIsEmpty: () => import("@/components/cart/CartIsEmpty"),
     CartForm: () => import("@/components/cart/CartForm"),
     CartSuccess: () => import("@/components/cart/CartSuccess"),
   },
+
   //получаем добавленные товары из store vuex
   computed: mapGetters([
     "cart/productsInCart",
     "cart/successCart",
-    "cart/countProductsInCart",
+    "cart/goodsCounter",
   ]),
+
   mounted() {
     document.body.style.overflow = "hidden";
   },
+  
   methods: {
     deleteProduct(id) {
       let array = this.products;

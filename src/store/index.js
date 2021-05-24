@@ -10,6 +10,4 @@ export default new Vuex.Store({
         cart,
         products       
     }
-
-
 })

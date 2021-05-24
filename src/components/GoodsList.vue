@@ -67,10 +67,7 @@ export default {
     //добавляем (делаем мутацию) товар в store vuex в корзине через actions
     addProduct(item) {
       this["products/addToCart"](item);
-      localStorage.setItem(
-        "products",
-        JSON.stringify(this["cart/productsInCart"])
-      );
+      localStorage.setItem("products", JSON.stringify(this["cart/productsInCart"]));
     },
 
     checkProductsInCart(item) {

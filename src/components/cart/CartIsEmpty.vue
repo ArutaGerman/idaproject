@@ -4,7 +4,7 @@
       <span> Пока что вы ничего не добавили в корзину.</span>
     </div>
     <div :class="$style.backBtn">
-      <base-button @has-click="goToPrevPage">
+      <base-button @has-click="goToPreviousPage">
         <slot>Перейти к выбору</slot>
       </base-button>
     </div>
@@ -17,7 +17,7 @@ export default {
     BaseButton: () => import("@/components/common/buttons/BaseButton"),
   },
   methods: {
-    goToPrevPage() {
+    goToPreviousPage() {
       this.$router.go(-1);
     },
   },

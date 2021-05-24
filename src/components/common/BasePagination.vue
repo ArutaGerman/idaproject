@@ -11,7 +11,7 @@
             :to="{
               name: 'GoodsList',
               params: { id: $route.params.id, name: $route.params.name },
-              query: { page: this.$route.query.page - 1 },
+              query: { page: showPreviousPage() },
             }"
             :class="$style.navBtnInnerBorder"
           >
@@ -75,12 +75,12 @@ export default {
 
   methods: {
     showNextPage() {
-      if (!this.$route.query.page) {
-        this.$route.query.page = 1;
-        return this.$route.query.page + 1;
-      } else {
-        return this.$route.query.page + 1;
-      }
+      if (!this.$route.query.page) this.$route.query.page = 1;
+      return this.$route.query.page + 1;
+    },
+
+    showPreviousPage() {
+      return this.$route.query.page - 1;
     },
   },
 };
