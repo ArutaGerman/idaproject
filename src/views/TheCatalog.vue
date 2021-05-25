@@ -1,9 +1,9 @@
 <template>
   <main :class="$style.mainContent">
     <div :class="$style.mainContentInner">
-      <div :class="$style.mainContentHeaderWrap">
+      <header :class="$style.mainContentHeaderWrap">
         <span :class="$style.title">Каталог</span>
-        <div :class="$style.sortBlockWrap">
+        <aside :class="$style.sortBlockWrap">
           <span :class="$style.sortTitle">Сортировать по: </span>
           <sort-list
             :sortMenuVisible="sortMenuVisible"
@@ -13,8 +13,8 @@
             @show-sort="showSortList"
             @hide-sort="hideSortList"
           ></sort-list>
-        </div>
-      </div>
+        </aside>
+      </header>
       <div :class="$style.dflexNoWrap">
         <side-menu
           :categories="categories"
@@ -43,6 +43,7 @@
 import "whatwg-fetch";
 import { mapGetters, mapActions } from "vuex";
 import { fetchProducts, fetchCategories } from "../api/api";
+import SortList from "@/components/SortList";
 
 export default {
   data() {
@@ -65,9 +66,9 @@ export default {
   },
 
   components: {
+    SortList,
     GoodsList: () => import("@/components/GoodsList"),
-    SideMenu: () => import("@/views/SideMenu"),
-    SortList: () => import("@/components/SortList"),
+    SideMenu: () => import("@/views/SideMenu"),    
     Pagination: () => import("@/components/common/BasePagination"),
   },
 
@@ -94,9 +95,7 @@ export default {
 
     // Расчет количества страниц товаров для пагинации
     countPages() {
-      let quantity = null;
-      quantity = Math.ceil(this.sortedProducts.length / this.goodsPerPage);
-      return quantity;
+      return Math.ceil(this.sortedProducts.length / this.goodsPerPage) || null
     },
 
     // Раскидываем товары по страницам для пагинации
@@ -175,9 +174,9 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import "../../public/css/includes/_flex";
-@import "../../public/css/includes/_colors";
-@import "../../public/css/includes/_font";
+@import "../../public/css/scss/includes/_flex";
+@import "../../public/css/scss/includes/_colors";
+@import "../../public/css/scss/includes/_font";
 
 .mainContent {
   position: relative;

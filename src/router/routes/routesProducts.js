@@ -1,6 +1,4 @@
-import GoodsList from '@/components/GoodsList.vue'
 import App from '@/App'
-import NotFoundComponent from '@/components/NotFoundComponent.vue'
 
 const routesProducts = [
   {
@@ -14,13 +12,9 @@ const routesProducts = [
   {
     path: '/goods/:id',
     name: 'GoodsList',
-    component: GoodsList,
+    component: () => import('@/components/GoodsList.vue'),
     props: true,
-  },
-  {
-    path: '*', 
-    component: NotFoundComponent
-  }
+  },  
 ];
 
 export default routesProducts

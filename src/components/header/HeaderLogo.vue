@@ -14,7 +14,7 @@
 </template>
 
 <style lang="scss" module>
-@import "../../../public/css/includes/_colors";
+@import "../../../public/css/scss/includes/_colors";
 .logo {
   font-size: 1.375rem;
   font-weight: bold;

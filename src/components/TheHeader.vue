@@ -41,8 +41,8 @@ export default {
 
 
 <style lang="scss" module>
-@import "../../public/css/includes/_flex";
-@import "../../public/css/includes/_colors";
+@import "../../public/css/scss/includes/_flex";
+@import "../../public/css/scss/includes/_colors";
 
 .header {
   background: #ffffff;

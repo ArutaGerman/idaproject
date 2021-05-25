@@ -12,9 +12,11 @@
 </template>
 
 <script>
+import BaseButton from "@/components/common/buttons/BaseButton";
+
 export default {
   components: {
-    BaseButton: () => import("@/components/common/buttons/BaseButton"),
+    BaseButton
   },
   methods: {
     goToPreviousPage() {

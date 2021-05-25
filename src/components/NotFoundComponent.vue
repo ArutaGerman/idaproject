@@ -21,7 +21,7 @@ components: {
 </script>
 
 <style lang="scss" module>
-@import "../../public/css/includes/_colors";
+@import "../../public/css/scss/includes/_colors";
 
 .notFoundBlock{
   height: 100%;

@@ -39,7 +39,7 @@ const mutations = {
     // Меняем state succes, если данные заполнены в корзине верно
     SHOW_ORDER_SUCCESS: state => {
         state.success = true, // Меняем флаг для отображения компонента успешно оформленного заказа
-            state.cartProducts = []; // Очищаем список товаров корзины
+        state.cartProducts = []; // Очищаем список товаров корзины
         state.cartCount = 0; // Сбрасываем счетчик товаров корзины
         localStorage.removeItem("products") //Очищаем localStorage, чтобы не прогрузило из него товары, которые были оформлены в заказе
     },

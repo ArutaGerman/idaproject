@@ -11,8 +11,8 @@
 </template>
 
 <style lang="scss" module>
-@import "../../../public/css/includes/_font";
-@import "../../../public/css/includes/_colors";
+@import "../../../public/css/scss/includes/_font";
+@import "../../../public/css/scss/includes/_colors";
 
 .content {
   position: absolute;

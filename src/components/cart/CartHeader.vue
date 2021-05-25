@@ -9,14 +9,16 @@
 
 <script>
 import {  mapActions } from "vuex";
+import BaseButton from "@/components/common/buttons/BaseButton";
+
 export default {
   components: {
-    BaseButton: () => import("@/components/common/buttons/BaseButton"),
+    BaseButton
   },
   methods: {
     ...mapActions(["cart/hideOrderSuccess"]),
     closeCart() {      
-      document.body.style.overflow = "auto";
+      document.querySelector('html').style.overflowY = "auto";
       this.$router.go(-1);
       this['cart/hideOrderSuccess']();
     },
@@ -25,9 +27,9 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import "../../../public/css/includes/_flex";
-@import "../../../public/css/includes/_font";
-@import "../../../public/css/includes/_colors";
+@import "../../../public/css/scss/includes/_flex";
+@import "../../../public/css/scss/includes/_font";
+@import "../../../public/css/scss/includes/_colors";
 
 .headerWrap {
   height: 5.8125rem;

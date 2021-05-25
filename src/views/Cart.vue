@@ -1,5 +1,5 @@
 <template>
-  <div :class="[$style.blockWrapper, $style.dflex]" >
+  <div :class="[$style.blockWrapper, $style.dflex]" ref="cartComponent">
     <div :class="$style.blockInner">
       <div :class="$style.inner">
         <cart-header></cart-header>
@@ -50,7 +50,7 @@ export default {
   ]),
 
   mounted() {
-    document.body.style.overflow = "hidden";
+    document.querySelector('html').style.overflowY = "hidden";
   },
   
   methods: {
@@ -63,8 +63,8 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import "../../public/css/includes/_flex";
-@import "../../public/css/includes/_colors";
+@import "../../public/css/scss/includes/_flex";
+@import "../../public/css/scss/includes/_colors";
 
 .blockWrapper {
   width: 100%;

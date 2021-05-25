@@ -60,8 +60,8 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import "../../public/css/includes/_colors";
-@import "../../public/css/includes/_font";
+@import "../../public/css/scss/includes/_colors";
+@import "../../public/css/scss/includes/_font";
 
 .nav {
   width: 100%;

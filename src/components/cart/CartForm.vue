@@ -82,6 +82,8 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { Url } from "../../additionals/variables";
+import BasketIcon from "@/components/common/icons/BasketIcon";
+import BaseButton from "@/components/common/buttons/BaseButton";
 
 export default {
   Url,
@@ -97,8 +99,8 @@ export default {
   },
 
   components: {
-    BasketIcon: () => import("@/components/common/icons/BasketIcon"),
-    BaseButton: () => import("@/components/common/buttons/BaseButton"),
+    BasketIcon,
+    BaseButton
   },
 
   computed: {
@@ -166,8 +168,8 @@ export default {
 
 
 <style lang="scss" module>
-@import "../../../public/css/style";
-@import "../../../public/css/includes/_font";
+@import "../../../public/css/scss/style";
+@import "../../../public/css/scss/includes/_font";
 
 .listWrap {
   text-align: left;

@@ -1,6 +1,6 @@
 <template>
   <div :class="[$style.goodsWrap, $style.dflex]">
-    <div
+    <article
       v-for="(item, index) in paginationGoods"
       :key="index"
       :class="$style.goodsItem"
@@ -42,7 +42,7 @@
           </div>
         </a>
       </div>
-    </div>
+    </article>
   </div>
 </template>
 
@@ -80,9 +80,9 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import "../../public/css/includes/_flex";
-@import "../../public/css/includes/_font";
-@import "../../public/css/includes/_colors";
+@import "../../public/css/scss/includes/_flex";
+@import "../../public/css/scss/includes/_font";
+@import "../../public/css/scss/includes/_colors";
 
 .goodsWrap {
   width: 100%;

@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../../../public/css/includes/_colors";
+@import "../../../../public/css/scss/includes/_colors";
 
 .btn {
   width: 100%;

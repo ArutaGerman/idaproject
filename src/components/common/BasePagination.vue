@@ -88,9 +88,9 @@ export default {
 
 
 <style lang="scss" module>
-@import "../../../public/css/includes/_colors";
-@import "../../../public/css/includes/_font";
-@import "../../../public/css/includes/_flex";
+@import "../../../public/css/scss/includes/_colors";
+@import "../../../public/css/scss/includes/_font";
+@import "../../../public/css/scss/includes/_flex";
 
 .wrapper {
   max-width: 42rem;

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="wrapper">
     <Header></Header>
     <Catalog></Catalog>
     <transition name="bounce">
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../public/css/style";
+@import "../public/css/scss/style";
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
