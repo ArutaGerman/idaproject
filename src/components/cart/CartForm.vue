@@ -13,7 +13,7 @@
               <router-link to="#" :class="$style.dflexNoWrap">
                 <div :class="$style.productsImgWrap">
                   <img
-                    :src="$options.Url.url + item.photo"
+                    :src="$options.Url + item.photo"
                     :class="$style.productsImg"
                     alt="Изображение товара"
                   />
@@ -53,7 +53,7 @@
           </div>
           <div v-else :class="$style.formDataToSend">
             <input
-              v-phone
+              v-inputPhoneMask
               v-model="phone"
               maxlength="18"
               type="text"
@@ -80,10 +80,11 @@
 
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import { Url } from "../../additionals/variables";
+import inputPhoneMask from "@/additionals/directives/inputPhoneMask";
 import BasketIcon from "@/components/common/icons/BasketIcon";
 import BaseButton from "@/components/common/buttons/BaseButton";
+import { mapGetters, mapActions } from "vuex";
+import { Url } from "@/api/api";
 
 export default {
   Url,
@@ -96,6 +97,10 @@ export default {
       isActive: false,
       error: false,
     };
+  },
+
+  directives:{
+    inputPhoneMask
   },
 
   components: {
@@ -140,6 +145,7 @@ export default {
     // Метод проверки заполнена ли верно форма заказа
     validateForm() {
       let phone = this.phone;
+
       const checkPhone = () => {
         if (phone) {
           phone = this.phone.replace(/\D/g, "").substring(0, 11);                         // Создаём переменную phone, которая содержит только цифры, для передачи на сервер
@@ -148,6 +154,7 @@ export default {
           this.focused = true;                                                            // если телефон вообще не заполнялся, то показываем ошибку и пример формата телефона (маску)
         }
       }
+
       //проверяем заполнены ли все инпуты формы и если не успешно, то показываем ошибку, если упешно - показываем компонент успешно оформленного заказа
       const checkTheFormInputs = () => {        
         if (!this.name || !this.address || !phone || phone.length != 11) {
@@ -159,6 +166,7 @@ export default {
           this["cart/showOrderSuccess"]();
         }
       }
+      
       checkPhone()
       checkTheFormInputs()
     },
@@ -203,6 +211,7 @@ export default {
             flex-grow: 1;
 
             .productsImgWrap {
+              width: 100%;
               max-width: 8.125rem;
               height: auto;
               align-items: center;

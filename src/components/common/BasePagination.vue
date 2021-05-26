@@ -65,14 +65,6 @@ export default {
     hasNextPage: Boolean,
   },
 
-  watch: {
-    $route() {
-      if (this.$route.query.page) {
-        this.$emit("update-current-page", +this.$route.query.page);
-      }
-    },
-  },
-
   methods: {
     showNextPage() {
       if (!this.$route.query.page) this.$route.query.page = 1;

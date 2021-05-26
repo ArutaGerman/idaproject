@@ -17,7 +17,7 @@
           </div>
           <a href="#" :class="$style.imgWrap">
             <img
-              :src="$options.Url.url + item.photo"
+              :src="$options.Url + item.photo"
               :class="$style.img"
               :title="item.name"
               alt="Фото товара"
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { Url } from "../additionals/variables";
+import { Url } from "../api/api";
 import { mapGetters, mapActions } from "vuex";
 export default {
   Url,

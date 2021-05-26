@@ -19,12 +19,14 @@
 
 
 <script>
+import HeaderLogo from "@/components/header/HeaderLogo";
+import CartIcon from "@/components/common/icons/CartIcon";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
-    HeaderLogo: () => import("@/components/header/HeaderLogo"),
-    CartIcon: () => import("@/components/common/icons/CartIcon"),
+    HeaderLogo,
+    CartIcon
   },
   
   mounted() {

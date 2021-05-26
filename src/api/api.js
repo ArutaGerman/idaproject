@@ -1,5 +1,7 @@
-const URL_CATEGORY_PRODUCTS = "https://front-test.idalite.com/api/product?category=";
-const URL_CATEGORIES_LIST = "https://front-test.idalite.com/api/product-category";
+export const Url = "https://front-test.idalite.com"
+
+const URL_CATEGORY_PRODUCTS = `${Url}/api/product?category=`;
+const URL_CATEGORIES_LIST = `${Url}/api/product-category`;
 
 // отправляем запрос на API для получения списка товаров
 export const fetchProducts = async (id) => {

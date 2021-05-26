@@ -30,7 +30,6 @@
             :countPages="countPages"
             :hasNextPage="hasNextPage"
             :currentPage="currentPage"
-            @update-current-page="getCurrentPage"
           >
           </Pagination>
         </div>
@@ -40,10 +39,10 @@
 </template>
 
 <script>
+import SortList from "@/components/SortList";
 import "whatwg-fetch";
 import { mapGetters, mapActions } from "vuex";
 import { fetchProducts, fetchCategories } from "../api/api";
-import SortList from "@/components/SortList";
 
 export default {
   data() {
@@ -103,8 +102,16 @@ export default {
       return this.countPaginationGoods();
     },
   },
+  
+  // Сохраняем номер просматриваемой страницы, чтобы она не скидывалась при обновлении (через f5 и т.п.)
+  // Если номера страницы в адресной строке нет, то сбрасываем значение текущей страницы на 1
+  watch:{
+    $route() {
+      this.$route.query.page ? this.currentPage = +this.$route.query.page : this.currentPage = 1
+      }
+    },
 
-  async mounted() {
+  mounted() {
     this["products/getID"];
 
     // Сохраняем номер текущей страницы из адресной строки, чтобы при обновлении страницы товары не сбросились на первую страницу
@@ -120,7 +127,7 @@ export default {
     } else {
       this["products/getID"];
     }
-    await this.getCategories; 
+    this.getCategories; 
 
     this.getGoods(); //Запускаем получение товаров по api
   },
@@ -165,10 +172,10 @@ export default {
       return this.sortedProducts.slice(START, END);
     },
 
-    // Получаем текущую открытую страницу товаров из пагинации
-    getCurrentPage(i) {
-      this.currentPage = i;
-    },
+    // // Получаем текущую открытую страницу товаров из пагинации
+    // getCurrentPage(i) {
+    //   this.currentPage = i;
+    // },
   },
 };
 </script>

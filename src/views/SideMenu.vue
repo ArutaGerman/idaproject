@@ -15,7 +15,7 @@
 </template>
 
 <script>
-// import { Translit } from "@/additionals/translit";
+// import { Translit } from "@/additionals/translit"; - добавить, если понадобится название категории в адресе прописать
 import "whatwg-fetch";
 import { mapGetters, mapActions } from "vuex";
 
@@ -33,11 +33,8 @@ export default {
 
   //Обновляем id в адресе при изменении id категории
   watch: {
-    $route(to, from) {
+    $route(to) {
       if (to.params.id) this.getCategoryId(+to.params.id);
-      if (to.params.id && from.params.id && to.params.id != from.params.id) {
-        this.$route.query.page = 1
-      }
     },
   },
 

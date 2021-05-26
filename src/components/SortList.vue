@@ -1,6 +1,6 @@
 <template>
   <ul
-    v-click-outside="hideSortList"
+    v-clickOutside="hideSortList"
     @click.stop="showSortList"
     ref="sortList"
     :class="[$style.wrap]"
@@ -25,11 +25,17 @@
 </template>
 
 <script>
+import clickOutside from "@/additionals/directives/clickOutside";
+
 export default {
   props: {
     sortedSelectParam: String,
     sortOptions: Array,
     sortMenuVisible: Boolean,
+  },
+
+  directives:{
+    clickOutside
   },
 
   methods: {

@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import {  mapActions } from "vuex";
 import BaseButton from "@/components/common/buttons/BaseButton";
+import {  mapActions } from "vuex";
 
 export default {
   components: {

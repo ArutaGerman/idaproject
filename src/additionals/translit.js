@@ -1,3 +1,4 @@
+// трансформирует русский язык - текст - в транслит
 export const Translit = {
     methods: {
         rus_to_latin(str) {
